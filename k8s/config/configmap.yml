@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ecommerce-config
+data:
+  MONGO_URL: "mongodb://mongo:27017/ecommerce"
+  JWT_SECRET: "supersecretkey"
+  JWT_ALGORITHM: "HS256"
+  DEFAULT_ADMIN_EMAIL: "admin@ecommerce.com"
+  DEFAULT_ADMIN_PASSWORD: "Admin@123456"
+  PRODUCT_SERVICE_URL: "http://product-service"
+  CART_SERVICE_URL: "http://cart-service"

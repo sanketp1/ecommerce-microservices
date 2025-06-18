@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./k8s/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: ecommerce
+
+  auth-service:
+    build: ./auth-service
+    ports:
+      - "8001:8000"
+    environment:
+      MONGO_URL: "mongodb://mongo:27017/ecommerce"
+      JWT_SECRET: "supersecretkey"
+      GOOGLE_CLIENT_ID: "your_google_client_id"
+      GOOGLE_CLIENT_SECRET: "your_google_client_secret"
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "8002:8000"
+    environment:
+      MONGO_URL: "mongodb://mongo:27017/ecommerce"
+
+  cart-service:
+    build: ./cart-service
+    ports:
+      - "8003:8000"
+    environment:
+      MONGO_URL: "mongodb://mongo:27017/ecommerce"
+      JWT_SECRET: "supersecretkey"
+      PRODUCT_SERVICE_URL: "http://product-service:8000"
+
+  payment-service:
+    build: ./payment-service
+    ports:
+      - "8004:8000"
+    environment:
+      MONGO_URL: "mongodb://mongo:27017/ecommerce"
+      JWT_SECRET: "supersecretkey"
+      RAZORPAY_KEY_ID: "your_razorpay_key"
+      RAZORPAY_KEY_SECRET: "your_razorpay_secret"
+      CART_SERVICE_URL: "http://cart-service:8000"
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "8005:8000"
+    environment:
+      MONGO_URL: "mongodb://mongo:27017/ecommerce"
+      JWT_SECRET: "supersecretkey"
+      PRODUCT_SERVICE_URL: "http://product-service:8000"
+
+  admin-service:
+    build: ./admin-service
+    ports:
+      - "8006:8000"
+    environment:
+      MONGO_URL: "mongodb://mongo:27017/ecommerce"
+      JWT_SECRET: "supersecretkey"
+
+  reverse-proxy:
+    image: traefik:v2.5
+    command:
+      - --api.insecure=true
+      - --providers.docker
+      - --entrypoints.web.address=:80
+    ports:
+      - "80:80"
+      - "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
