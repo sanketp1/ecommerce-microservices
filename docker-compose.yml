@@ -3,71 +3,172 @@ version: '3.8'
 services:
   mongo:
     image: mongo:5.0
-    ports:
-      - "27017:27017"
+    container_name: ecommerce-mongo
+    restart: always
     volumes:
-      - ./k8s/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongo-data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USER}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ecommerce
+    networks:
+      - ecommerce-net
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   auth-service:
     build: ./auth-service
-    ports:
-      - "8001:8000"
+    container_name: auth-service
+    restart: always
+    depends_on:
+      mongo:
+        condition: service_healthy
     environment:
-      MONGO_URL: "mongodb://mongo:27017/ecommerce"
-      JWT_SECRET: "supersecretkey"
-      GOOGLE_CLIENT_ID: "your_google_client_id"
-      GOOGLE_CLIENT_SECRET: "your_google_client_secret"
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: HS512
+      JWT_EXPIRATION_HOURS: 24
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
+      DEFAULT_ADMIN_EMAIL: ${DEFAULT_ADMIN_EMAIL}
+      DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD}
+    networks:
+      - ecommerce-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.auth.rule=PathPrefix(`/api/auth`)"
+      - "traefik.http.services.auth.loadbalancer.server.port=8000"
 
   product-service:
     build: ./product-service
-    ports:
-      - "8002:8000"
+    container_name: product-service
+    restart: always
+    depends_on:
+      mongo:
+        condition: service_healthy
     environment:
-      MONGO_URL: "mongodb://mongo:27017/ecommerce"
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
+    networks:
+      - ecommerce-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.products.rule=PathPrefix(`/api/products`)"
+      - "traefik.http.services.products.loadbalancer.server.port=8000"
 
   cart-service:
     build: ./cart-service
-    ports:
-      - "8003:8000"
+    container_name: cart-service
+    restart: always
+    depends_on:
+      - mongo
+      - product-service
     environment:
-      MONGO_URL: "mongodb://mongo:27017/ecommerce"
-      JWT_SECRET: "supersecretkey"
-      PRODUCT_SERVICE_URL: "http://product-service:8000"
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: HS512
+      PRODUCT_SERVICE_URL: http://product-service:8000
+    networks:
+      - ecommerce-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cart.rule=PathPrefix(`/api/cart`)"
+      - "traefik.http.services.cart.loadbalancer.server.port=8000"
 
   payment-service:
     build: ./payment-service
-    ports:
-      - "8004:8000"
+    container_name: payment-service
+    restart: always
+    depends_on:
+      - mongo
+      - cart-service
     environment:
-      MONGO_URL: "mongodb://mongo:27017/ecommerce"
-      JWT_SECRET: "supersecretkey"
-      RAZORPAY_KEY_ID: "your_razorpay_key"
-      RAZORPAY_KEY_SECRET: "your_razorpay_secret"
-      CART_SERVICE_URL: "http://cart-service:8000"
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: HS512
+      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
+      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+      CART_SERVICE_URL: http://cart-service:8000
+    networks:
+      - ecommerce-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.payments.rule=PathPrefix(`/api/payments`)"
+      - "traefik.http.services.payments.loadbalancer.server.port=8000"
 
   order-service:
     build: ./order-service
-    ports:
-      - "8005:8000"
+    container_name: order-service
+    restart: always
+    depends_on:
+      - mongo
+      - product-service
     environment:
-      MONGO_URL: "mongodb://mongo:27017/ecommerce"
-      JWT_SECRET: "supersecretkey"
-      PRODUCT_SERVICE_URL: "http://product-service:8000"
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: HS512
+      PRODUCT_SERVICE_URL: http://product-service:8000
+    networks:
+      - ecommerce-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.orders.rule=PathPrefix(`/api/orders`)"
+      - "traefik.http.services.orders.loadbalancer.server.port=8000"
 
   admin-service:
     build: ./admin-service
-    ports:
-      - "8006:8000"
+    container_name: admin-service
+    restart: always
+    depends_on:
+      mongo:
+        condition: service_healthy
     environment:
-      MONGO_URL: "mongodb://mongo:27017/ecommerce"
-      JWT_SECRET: "supersecretkey"
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_ALGORITHM: HS512
+    networks:
+      - ecommerce-net
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.admin.rule=PathPrefix(`/api/admin`)"
+      - "traefik.http.services.admin.loadbalancer.server.port=8000"
 
   reverse-proxy:
     image: traefik:v2.5
+    container_name: traefik
     command:
       - --api.insecure=true
       - --providers.docker
@@ -77,3 +178,18 @@ services:
       - "8080:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ecommerce-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.api.rule=Host(`monitor.localhost`)"
+      - "traefik.http.routers.api.service=api@internal"
+      - "traefik.http.routers.api.entrypoints=web"
+
+networks:
+  ecommerce-net:
+    driver: bridge
+
+volumes:
+  mongo-data:
+    driver: local
