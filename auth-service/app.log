@@ -1,0 +1,6 @@
+2025-06-17 13:46:40,398 - app.database.connection - INFO - Database initialized successfully
+2025-06-17 13:48:17,360 - httpx - INFO - HTTP Request: GET https://oauth2.googleapis.com/tokeninfo?id_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMjViMzAzMmEtZWI0Ny00Mzk3LTg5ZDAtY2MxYzQ3NjlkZWNkIiwiZW1haWwiOiJ0ZXN0QG1haWwuY29tIiwiZXhwIjoxNzUwMjM0NjU4fQ.LaFfwl-lXxrZKEdt7b06YEVhFc-PEntBBzFjgDpVDX0 "HTTP/1.1 400 Bad Request"
+2025-06-17 13:48:17,375 - app.services.oauth_service - ERROR - Google token verification error: 
+2025-06-17 17:05:07,948 - app.database.connection - INFO - Database initialized successfully
+2025-06-18 13:22:52,727 - app.database.connection - INFO - Database initialized successfully
+2025-06-18 13:23:27,852 - app.database.connection - INFO - Database initialized successfully
