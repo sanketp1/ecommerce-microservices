@@ -11,10 +11,9 @@ class Product(BaseModel):
     price: float
     category: str
     image_url: str
-    stock: int = 0
-
-    class Config:
-        schema_extra = {
+    stock: int = 0    
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "name": "Premium Wireless Headphones",
                 "description": "High-quality wireless headphones with noise cancellation",
@@ -24,6 +23,7 @@ class Product(BaseModel):
                 "stock": 50
             }
         }
+    }
 
 
 class ProductUpdate(BaseModel):
@@ -34,13 +34,13 @@ class ProductUpdate(BaseModel):
     price: Optional[float] = None
     category: Optional[str] = None
     image_url: Optional[str] = None
-    stock: Optional[int] = None
-
-    class Config:
-        schema_extra = {
+    stock: Optional[int] = None    
+    model_config = {
+        "json_schema_extra": {
             "example": {
                 "name": "Updated Product Name",
                 "price": 299.99,
                 "stock": 25
             }
         }
+    }
