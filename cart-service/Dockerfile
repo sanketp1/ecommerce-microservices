@@ -1,9 +1,9 @@
-FROM python:3.9-slim-buster
+FROM python:3.10-slim-buster
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV GUNICORN_CMD_ARGS="--workers ${GUNICORN_WORKERS:-4} --threads ${GUNICORN_THREADS:-2} --timeout ${GUNICORN_TIMEOUT:-30} --bind 0.0.0.0:8000"
+ENV GUNICORN_CMD_ARGS="--workers ${GUNICORN_WORKERS:-4} --worker-class uvicorn.workers.UvicornWorker --timeout ${GUNICORN_TIMEOUT:-30} --bind 0.0.0.0:8000"
 
 # Install system dependencies
 RUN apt-get update && \
@@ -29,4 +29,4 @@ HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
     CMD curl -f http://localhost:8000/api/health || exit 1
 
 # Run application with Gunicorn
-CMD ["gunicorn", "app:app"]
+CMD ["gunicorn", "app.main:app"]

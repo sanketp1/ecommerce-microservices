@@ -53,7 +53,7 @@
 
 ## 🏗️ Architecture Overview
 
-```
+```mermaid
 graph TB
     A[Client/Browser] --> B[Traefik Load Balancer]
     B --> C[Frontend (React/Vercel)]
