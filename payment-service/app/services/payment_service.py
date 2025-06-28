@@ -4,35 +4,37 @@ import razorpay
 import jwt
 from datetime import datetime
 from typing import Dict, Any, Optional
-
+from app.api.dependencies import get_current_user_token
 from app.config.settings import settings
 from app.database.repositories.payment_repository import PaymentRepository
 from app.models.payment import PaymentVerification
 from app.utils.logger import logger
+from fastapi import Depends
 
 class PaymentService:
     """Service for handling payment operations"""
     
     def __init__(self):
         self.payment_repository = PaymentRepository()
+        logger.info("Initializing Razorpay client")
         self.razorpay_client = razorpay.Client(
             auth=(settings.RAZORPAY_KEY_ID, settings.RAZORPAY_KEY_SECRET)
         )
+        # logger.info("Razorpay client initialized"+str(settings.RAZORPAY_KEY_ID)+" "+str(settings.RAZORPAY_KEY_SECRET))
     
-    async def get_cart(self, user_id: str) -> Optional[Dict[str, Any]]:
+    async def get_cart(self, user_id: str, token:str) -> Optional[Dict[str, Any]]:
         """Get user's cart from cart service"""
         try:
+            
+            logger.info(token)
             async with httpx.AsyncClient() as client:
-                token = jwt.encode(
-                    {'user_id': user_id}, 
-                    settings.JWT_SECRET, 
-                    algorithm=settings.JWT_ALGORITHM
-                )
-                headers = {"Authorization": f"Bearer {token}"}
-                response = await client.get(
-                    f"{settings.CART_SERVICE_URL}/api/cart", 
-                    headers=headers
-                )
+                logger.info(f"Calling cart service: {settings.CART_SERVICE_URL}/cart")
+                headers = {
+                "accept": "application/json",
+                "Authorization": f"Bearer {token}"
+            }
+                response = await client.get(f"{settings.CART_SERVICE_URL}/cart/", headers=headers)
+
                 if response.status_code == 200:
                     return response.json()
                 return None
@@ -40,24 +42,29 @@ class PaymentService:
             logger.error(f"Error fetching cart: {str(e)}")
             return None
     
-    async def create_payment_order(self, user_id: str) -> Dict[str, Any]:
+    async def create_payment_order(self, user_id: str, token:str) -> Dict[str, Any]:
         """Create a new payment order"""
         # Get cart
-        cart = await self.get_cart(user_id)
+        cart = await self.get_cart(user_id,token)
         if not cart or not cart.get("items"):
             raise ValueError("Cart is empty")
         
         # Calculate total in paisa (Razorpay uses smallest currency unit)
         total_amount = int(cart["total"] * 100)
         
+        logger.info("Creating order...")
+
         # Create Razorpay order
         order_data = {
             "amount": total_amount,
             "currency": "INR",
             "payment_capture": "1"
         }
+        
         razorpay_order = self.razorpay_client.order.create(data=order_data)
         
+        logger.info("Order created successfully")
+      
         # Store payment record
         payment_id = str(uuid.uuid4())
         payment_record = {

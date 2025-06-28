@@ -1,2 +1,5 @@
+.exp
 .env
 .venv
+mongo-data
+frontend 

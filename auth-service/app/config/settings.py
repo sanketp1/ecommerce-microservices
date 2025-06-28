@@ -22,7 +22,14 @@ class Settings(BaseSettings):
     DEFAULT_ADMIN_PASSWORD: str = os.getenv("DEFAULT_ADMIN_PASSWORD", "Admin@123456")
     
     # CORS
-    CORS_ORIGINS: List[str] = os.getenv("CORS_ORIGINS", "*").split(",")
+    # Raw string from .env
+    cors_origins: str = os.getenv("CORS_ORIGINS", "*")
+
+    # Derived list
+    @property
+    def allowed_origins(self) -> List[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+
     
     # Logging
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")

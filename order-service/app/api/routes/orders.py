@@ -50,17 +50,13 @@ async def update_order_status(
     current_user: dict = Depends(get_current_user)
 ):
     """Update order status"""
-    # First check if order exists and belongs to user
+    # Only admin can update order status
+    if current_user.get("is_admin") != True:
+        raise HTTPException(status_code=403, detail="Admin access required")
     order = await order_service.get_order_by_id(order_id)
-    
     if not order:
         raise HTTPException(status_code=404, detail="Order not found")
-    
-    if order["user_id"] != current_user["user_id"]:
-        raise HTTPException(status_code=403, detail="Access denied")
-    
     success = await order_service.update_order_status(order_id, status)
-    
     if success:
         return {"message": "Order status updated successfully"}
     else:

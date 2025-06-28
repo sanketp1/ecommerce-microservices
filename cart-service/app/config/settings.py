@@ -23,15 +23,27 @@ class Settings(BaseSettings):
     # External services
     product_service_url: str = os.getenv("PRODUCT_SERVICE_URL", "http://localhost:8000")
     
-    # CORS configuration
-    allowed_origins: List[str] = os.getenv("ALLOWED_ORIGINS", "*").split(",")
-    
+    # Raw string from .env
+    cors_origins: str = os.getenv("CORS_ORIGINS", "*")
+
+    # Derived list
+    @property
+    def allowed_origins(self) -> List[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+
     # Logging configuration
     log_level: str = os.getenv("LOG_LEVEL", "INFO")
     
-    class Config:
-        env_file = ".env"
-        case_sensitive = False
+    # class Config:
+    #     env_file = ".env"
+    #     case_sensitive = False
+    #     extra = "ignore"
+    
+    model_config = {
+        "extra": "ignore",
+        "env_file": ".env",
+        "case_sensitive": False
+    }
 
 # Create global settings instance
 settings = Settings()

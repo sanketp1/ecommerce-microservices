@@ -4,8 +4,10 @@ from fastapi import APIRouter, HTTPException, Depends, Query
 from app.models.product import Product, ProductUpdate
 from app.services.product_service import ProductService
 from app.api.dependencies import get_product_service
-
+from app.utils.logger import logger
 router = APIRouter(prefix="/products", tags=["products"])
+
+
 
 
 @router.get("/", response_model=List[Product])
@@ -14,6 +16,7 @@ async def get_products(
     search: Optional[str] = Query(None, description="Search in name and description"),
     product_service: ProductService = Depends(get_product_service)
 ):
+    
     """Get all products with optional filtering."""
     return await product_service.get_all_products(category=category, search=search)
 
@@ -43,6 +46,7 @@ async def create_product(
     product: Product,
     product_service: ProductService = Depends(get_product_service)
 ):
+    logger.info(f"Creating product: {product}")
     """Create a new product."""
     return await product_service.create_product(product)
 

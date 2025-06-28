@@ -5,14 +5,24 @@ from app.config.settings import settings
 from app.database.connection import initialize_database
 from app.api.routes.products import router as products_router
 from app.utils.logger import logger
+import logging
+
+logger = logging.getLogger(__name__)
 
 def create_app() -> FastAPI:
     """Create and configure FastAPI application."""
     app = FastAPI(
         title=settings.app_name,
         description=settings.app_description,
-        version=settings.app_version
+        version=settings.app_version,
+        docs_url="/api/products/docs",             # Swagger UI
+        redoc_url="/api/products/redoc",           # Redoc UI (optional)
+        openapi_url="/api/products/openapi.json"   # OpenAPI schema
     )
+
+    
+    logger.info(settings.allowed_origins)
+    print(settings.allowed_origins)
 
     # CORS middleware
     app.add_middleware(

@@ -4,3 +4,7 @@
 2025-06-17 17:05:07,948 - app.database.connection - INFO - Database initialized successfully
 2025-06-18 13:22:52,727 - app.database.connection - INFO - Database initialized successfully
 2025-06-18 13:23:27,852 - app.database.connection - INFO - Database initialized successfully
+2025-06-21 07:24:43,465 - app.services.user_service - INFO - Default admin user created: admin@ecommerce.com
+2025-06-21 07:24:43,468 - app.database.connection - INFO - Database initialized successfully
+2025-06-21 21:30:53,649 - app.services.user_service - INFO - Default admin user created: admin@ecommerce.com
+2025-06-21 21:30:53,650 - app.database.connection - INFO - Database initialized successfully

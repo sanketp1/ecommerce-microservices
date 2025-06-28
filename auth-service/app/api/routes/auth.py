@@ -31,7 +31,7 @@ async def login(login_data: UserLogin):
     if not user:
         raise HTTPException(status_code=401, detail="Invalid email or password")
     
-    token = auth_service.create_jwt_token(user.id, user.email)
+    token = auth_service.create_jwt_token(user.id, user.email, user.is_admin)
     
     return TokenResponse(
         access_token=token,

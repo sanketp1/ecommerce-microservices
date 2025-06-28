@@ -8,6 +8,8 @@ services:
     volumes:
       - mongo-data:/data/db
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    env_file:
+      - .env
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
@@ -30,15 +32,10 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
       MONGO_URL: mongodb://root:${MONGO_ROOT_PASSWORD}@mongo:27017/ecommerce?authSource=admin
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_ALGORITHM: HS512
-      JWT_EXPIRATION_HOURS: 24
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
-      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET}
-      DEFAULT_ADMIN_EMAIL: ${DEFAULT_ADMIN_EMAIL}
-      DEFAULT_ADMIN_PASSWORD: ${DEFAULT_ADMIN_PASSWORD}
     networks:
       - ecommerce-net
     healthcheck:
@@ -50,6 +47,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.auth.rule=PathPrefix(`/api/auth`)"
       - "traefik.http.services.auth.loadbalancer.server.port=8000"
+
   product-service:
     build: ./product-service
     container_name: product-service
@@ -57,8 +55,10 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
-      MONGO_URL: mongodb://ecomm:securePassword123@mongo:27017/ecommerce?authSource=ecommerce
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
       PORT: 8000
     networks:
       - ecommerce-net
@@ -71,6 +71,7 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.products.rule=PathPrefix(`/api/products`)"
       - "traefik.http.services.products.loadbalancer.server.port=8000"
+
   cart-service:
     build: ./cart-service
     container_name: cart-service
@@ -80,12 +81,14 @@ services:
         condition: service_healthy
       product-service:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
-      MONGO_URL: mongodb://ecomm:securePassword123@mongo:27017/ecommerce?authSource=ecommerce
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_ALGORITHM: HS512
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
       PRODUCT_SERVICE_URL: http://product-service:8000/api
+      CART_SERVICE_URL: http://cart-service:8000/api
       PORT: 8000
+    mem_limit: 1g
     networks:
       - ecommerce-net
     healthcheck:
@@ -107,12 +110,10 @@ services:
         condition: service_healthy
       cart-service:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
-      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_ALGORITHM: HS512
-      RAZORPAY_KEY_ID: ${RAZORPAY_KEY_ID}
-      RAZORPAY_KEY_SECRET: ${RAZORPAY_KEY_SECRET}
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
       CART_SERVICE_URL: http://cart-service:8000/api
       PORT: 8000
     networks:
@@ -136,10 +137,10 @@ services:
         condition: service_healthy
       product-service:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
-      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_ALGORITHM: HS512
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
       PRODUCT_SERVICE_URL: http://product-service:8000/api
       PAYMENT_SERVICE_URL: http://payment-service:8000/api
       PORT: 8000
@@ -162,10 +163,10 @@ services:
     depends_on:
       mongo:
         condition: service_healthy
+    env_file:
+      - .env
     environment:
-      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=admin
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_ALGORITHM: HS512
+      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
     networks:
       - ecommerce-net
     healthcheck:
@@ -177,6 +178,22 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.admin.rule=PathPrefix(`/api/admin`)"
       - "traefik.http.services.admin.loadbalancer.server.port=8000"
+
+  # frontend:
+  #   build: ./frontend
+  #   container_name: frontend
+  #   restart: always
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - ecommerce-net
+  #   depends_on:
+  #     - auth-service
+  #     - product-service
+  #     - cart-service
+  #     - payment-service
+  #     - order-service
+  #     - admin-service
 
   reverse-proxy:
     image: traefik:v2.5

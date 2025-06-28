@@ -1,5 +1,5 @@
 import os
-from typing import Optional
+from typing import Optional, List
 
 class Settings:
     """Application settings"""
@@ -17,6 +17,15 @@ class Settings:
     
     # Service URLs
     CART_SERVICE_URL: str = os.environ.get('CART_SERVICE_URL', 'http://cart-service:8000')
+
+    # Raw string from .env
+    cors_origins: str = os.getenv("CORS_ORIGINS", "*")
+
+    # Derived list
+    @property
+    def allowed_origins(self) -> List[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+
     
     # Database name
     DATABASE_NAME: str = 'ecommerce'

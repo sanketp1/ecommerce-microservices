@@ -6,13 +6,13 @@ from datetime import datetime
 class CartItem(BaseModel):
     """Cart item model for API requests."""
     
-    product_id: str
+    product_id: int
     quantity: int
 
     class Config:
         schema_extra = {
             "example": {
-                "product_id": "550e8400-e29b-41d4-a716-446655440000",
+                "product_id": 1,
                 "quantity": 2
             }
         }
@@ -21,14 +21,14 @@ class CartItem(BaseModel):
 class CartItemResponse(BaseModel):
     """Cart item model for API responses with product details."""
     
-    product_id: str
+    product_id: int
     quantity: int
     product: Optional[Dict[str, Any]] = None
 
     class Config:
         schema_extra = {
             "example": {
-                "product_id": "550e8400-e29b-41d4-a716-446655440000",
+                "product_id": 1,
                 "quantity": 2,
                 "product": {
                     "id": "550e8400-e29b-41d4-a716-446655440000",
@@ -54,7 +54,7 @@ class Cart(BaseModel):
                 "user_id": "user123",
                 "items": [
                     {
-                        "product_id": "550e8400-e29b-41d4-a716-446655440000",
+                        "product_id": int,
                         "quantity": 2
                     }
                 ],
@@ -75,7 +75,7 @@ class CartResponse(BaseModel):
             "example": {
                 "items": [
                     {
-                        "product_id": "550e8400-e29b-41d4-a716-446655440000",
+                        "product_id": 1,
                         "quantity": 2,
                         "product": {
                             "id": "550e8400-e29b-41d4-a716-446655440000",

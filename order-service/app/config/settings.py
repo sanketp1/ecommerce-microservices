@@ -1,5 +1,6 @@
 import os
 from pydantic_settings import BaseSettings
+from typing import List
 
 class Settings(BaseSettings):
     # MongoDB settings
@@ -13,6 +14,15 @@ class Settings(BaseSettings):
     # Service URLs
     product_service_url: str = os.environ.get('PRODUCT_SERVICE_URL', 'http://product-service:8000')
     
+    # Raw string from .env
+    cors_origins: str = os.getenv("CORS_ORIGINS", "*")
+
+    # Derived list
+    @property
+    def allowed_origins(self) -> List[str]:
+        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+
+
     class Config:
         env_file = ".env"
 
