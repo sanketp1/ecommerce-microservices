@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: Payment Service
+  description: Payment processing and verification
+  version: "1.0.0"
+paths:
+  /api/payments/create-order:
+    post:
+      summary: Create Payment Order
+      description: Create a new payment order
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+        - HTTPBearer: []
+  /api/payments/verify:
+    post:
+      summary: Verify Payment
+      description: Verify payment and create order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentVerification'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/health:
+    get:
+      summary: Health Check
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    PaymentVerification:
+      type: object
+      required: [razorpay_order_id, razorpay_payment_id, razorpay_signature]
+      properties:
+        razorpay_order_id:
+          type: string
+        razorpay_payment_id:
+          type: string
+        razorpay_signature:
+          type: string
+      description: Payment verification model
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      type: object
+      required: [loc, msg, type]
+      properties:
+        loc:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: integer
+        msg:
+          type: string
+        type:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

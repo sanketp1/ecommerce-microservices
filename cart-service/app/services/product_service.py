@@ -10,13 +10,15 @@ class ProductService:
     
     def __init__(self):
         self.base_url = settings.product_service_url
+        # self.base_url = 'http://127.0.0.1:8080'
         self.timeout = 30.0
     
-    async def get_product_details(self, product_id: str) -> Optional[Dict[str, Any]]:
+    async def get_product_details(self, product_id: int) -> Optional[Dict[str, Any]]:
         """Get product details from product service."""
         try:
+            logger.info(f"Calling product service: {self.base_url}/products/{product_id}")
             async with httpx.AsyncClient(timeout=self.timeout) as client:
-                response = await client.get(f"{self.base_url}/api/products/{product_id}")
+                response = await client.get(f"{self.base_url}/products/{product_id}")
                 
                 if response.status_code == 200:
                     return response.json()

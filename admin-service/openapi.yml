@@ -1,0 +1,278 @@
+openapi: 3.1.0
+info:
+  title: Admin Service
+  description: Administration dashboard and management
+  version: "1.0.0"
+paths:
+  /api/admin/dashboard:
+    get:
+      summary: Get Admin Dashboard
+      description: Get admin dashboard data including statistics and recent orders.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DashboardResponse'
+      security:
+        - HTTPBearer: []
+  /api/admin/users:
+    get:
+      summary: Get All Users
+      description: Get all users (excluding sensitive information).
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - HTTPBearer: []
+  /api/admin/products:
+    post:
+      summary: Create Product
+      description: Create a new product.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/admin/products/{product_id}:
+    put:
+      summary: Update Product
+      description: Update an existing product.
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+    delete:
+      summary: Delete Product
+      description: Delete a product.
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/admin/orders:
+    get:
+      summary: Get All Orders
+      description: Get all orders with user information.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - HTTPBearer: []
+  /api/admin/orders/{order_id}/status:
+    put:
+      summary: Update Order Status
+      description: Update order status.
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatusUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/health:
+    get:
+      summary: Health Check
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    DashboardResponse:
+      type: object
+      required: [stats, recent_orders]
+      properties:
+        stats:
+          $ref: '#/components/schemas/DashboardStats'
+        recent_orders:
+          type: array
+          items:
+            type: object
+      description: Model for dashboard response.
+    DashboardStats:
+      type: object
+      required: [total_users, total_products, total_orders, total_revenue]
+      properties:
+        total_users:
+          type: integer
+        total_products:
+          type: integer
+        total_orders:
+          type: integer
+        total_revenue:
+          type: number
+      description: Model for dashboard statistics.
+    ProductCreate:
+      type: object
+      required: [name, price, category]
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+        category:
+          type: string
+        inventory_count:
+          type: integer
+          default: 0
+        image_url:
+          type: string
+          nullable: true
+      description: Model for creating a product.
+    ProductUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+        description:
+          type: string
+          nullable: true
+        price:
+          type: number
+          nullable: true
+        category:
+          type: string
+          nullable: true
+        inventory_count:
+          type: integer
+          nullable: true
+        image_url:
+          type: string
+          nullable: true
+      description: Model for updating a product.
+    OrderStatusUpdate:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          description: New order status
+      description: Model for updating order status.
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      type: object
+      required: [loc, msg, type]
+      properties:
+        loc:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: integer
+        msg:
+          type: string
+        type:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

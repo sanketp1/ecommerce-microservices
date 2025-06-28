@@ -7,11 +7,19 @@ db.createUser({
   roles: [{ role: 'readWrite', db: 'ecommerce' }]
 });
 
+// Ensure required collections exist
+const collectionsToEnsure = ['payments', 'orders', 'cart'];
+collectionsToEnsure.forEach((name) => {
+  if (!db.getCollectionNames().includes(name)) {
+    db.createCollection(name);
+  }
+});
+
 // Create admin user
 db.users.insertOne({
   id: "admin-1",
   email: "admin@ecommerce.com",
-  password: "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW", // bcrypt hash for 'Admin@123456'
+  password: "$2b$12$P1krn6/hpk3SERvGnkbcse2y8Xr6LrmUBx1I1oBCK6EtWquZoCqZ6", // bcrypt hash for 'Admin@123456'
   full_name: "System Administrator",
   is_admin: true,
   created_at: new Date()
