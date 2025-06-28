@@ -1,0 +1,165 @@
+openapi: 3.1.0
+info:
+  title: Order Service
+  description: Order management and tracking
+  version: "1.0.0"
+paths:
+  /api/orders:
+    get:
+      summary: Get Orders
+      description: Get all orders for the authenticated user
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+      security:
+        - HTTPBearer: []
+    post:
+      summary: Create Order
+      description: Create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/orders/{order_id}:
+    get:
+      summary: Get Order
+      description: Get a specific order by ID
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/orders/{order_id}/status:
+    patch:
+      summary: Update Order Status
+      description: Update order status
+      parameters:
+        - name: order_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: status
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/health:
+    get:
+      summary: Health Check
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    OrderCreate:
+      type: object
+      required: [user_id, items, total_amount]
+      properties:
+        user_id:
+          type: string
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OrderItem'
+        total_amount:
+          type: number
+        status:
+          $ref: '#/components/schemas/OrderStatus'
+          default: pending
+    OrderItem:
+      type: object
+      required: [product_id, quantity, price]
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        price:
+          type: number
+        product:
+          type: object
+          nullable: true
+    OrderStatus:
+      type: string
+      enum: [pending, confirmed, processing, shipped, delivered, cancelled]
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      type: object
+      required: [loc, msg, type]
+      properties:
+        loc:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: integer
+        msg:
+          type: string
+        type:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

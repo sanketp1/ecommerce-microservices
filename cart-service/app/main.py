@@ -11,7 +11,10 @@ def create_app() -> FastAPI:
     app = FastAPI(
         title=settings.app_name,
         description=settings.app_description,
-        version=settings.app_version
+        version=settings.app_version,
+        docs_url="/api/cart/docs",             # Swagger UI
+        redoc_url="/api/cart/redoc",           # Redoc UI (optional)
+        openapi_url="/api/cart/openapi.json"   # OpenAPI schema
     )
 
     # CORS middleware

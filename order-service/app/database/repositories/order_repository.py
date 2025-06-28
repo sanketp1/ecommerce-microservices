@@ -47,7 +47,7 @@ class OrderRepository:
         """Get a specific order by ID"""
         try:
             order = self.collection.find_one(
-                {"order_id": order_id}, 
+                {"order_id": order_id},
                 {"_id": 0}
             )
             return order

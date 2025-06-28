@@ -21,3 +21,8 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     token = credentials.credentials
     payload = verify_jwt_token(token)
     return payload
+
+async def get_current_user_token(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """Get current user from JWT token"""
+    token = credentials.credentials
+    return token

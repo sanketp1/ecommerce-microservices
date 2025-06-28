@@ -1,0 +1,179 @@
+openapi: 3.1.0
+info:
+  title: Cart Service
+  description: Shopping cart management
+  version: "1.0.0"
+paths:
+  /api/cart/:
+    get:
+      tags: [cart]
+      summary: Get Cart
+      description: Get user's shopping cart.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CartResponse'
+      security:
+        - HTTPBearer: []
+  /api/cart/add:
+    post:
+      tags: [cart]
+      summary: Add To Cart
+      description: Add item to cart.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CartItem'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/cart/remove/{product_id}:
+    delete:
+      tags: [cart]
+      summary: Remove From Cart
+      description: Remove item from cart.
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/cart/update/{product_id}/{quantity}:
+    put:
+      tags: [cart]
+      summary: Update Item Quantity
+      description: Update item quantity in cart.
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: quantity
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: string
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+        - HTTPBearer: []
+  /api/health:
+    get:
+      summary: Health Check
+      description: Health check endpoint.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+components:
+  schemas:
+    CartItem:
+      type: object
+      required: [product_id, quantity]
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+      description: Cart item model for API requests.
+    CartItemResponse:
+      type: object
+      required: [product_id, quantity]
+      properties:
+        product_id:
+          type: string
+        quantity:
+          type: integer
+        product:
+          type: object
+          nullable: true
+      description: Cart item model for API responses with product details.
+    CartResponse:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/CartItemResponse'
+          default: []
+        total:
+          type: number
+          default: 0
+      description: Cart response model for API responses.
+    HTTPValidationError:
+      type: object
+      properties:
+        detail:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationError'
+    ValidationError:
+      type: object
+      required: [loc, msg, type]
+      properties:
+        loc:
+          type: array
+          items:
+            oneOf:
+              - type: string
+              - type: integer
+        msg:
+          type: string
+        type:
+          type: string
+  securitySchemes:
+    HTTPBearer:
+      type: http
+      scheme: bearer

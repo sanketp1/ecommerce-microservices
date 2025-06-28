@@ -8,13 +8,16 @@ from app.utils.logger import logger
 app = FastAPI(
     title="Payment Service", 
     description="Payment processing and verification",
-    version="1.0.0"
+    version="1.0.0",
+    docs_url="/api/payments/docs",             # Swagger UI
+    redoc_url="/api/payments/redoc",           # Redoc UI (optional)
+    openapi_url="/api/payments/openapi.json"   # OpenAPI schema
 )
 
 # CORS middleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

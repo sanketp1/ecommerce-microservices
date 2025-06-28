@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 # MongoDB connection
 client = MongoClient(settings.MONGO_URL)
+# client = MongoClient("mongodb://root:admin@localhost:27017")
 db = client[settings.DATABASE_NAME]
 users_collection = db.users
 
