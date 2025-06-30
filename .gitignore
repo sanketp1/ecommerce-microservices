@@ -1,7 +1,8 @@
 .exp
-.env
+.env*
 .venv
 mongo-data
 # Exclude node_modules in e-commerce-frontend
 e-commerce-frontend/node_modules
 e-commerce-frontend/.next
+e-commerce-frontend/.env*
