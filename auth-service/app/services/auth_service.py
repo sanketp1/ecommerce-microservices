@@ -12,7 +12,7 @@ class AuthService:
         self.algorithm = settings.JWT_ALGORITHM
         self.expiration_time = settings.JWT_EXPIRATION_TIME
     
-    def create_jwt_token(self, user_id: str, email: str, is_admin: bool) -> str:
+    def create_jwt_token(self, user_id: str, email: str, is_admin: bool = False) -> str:
         payload = {
             "user_id": user_id,
             "email": email,

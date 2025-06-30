@@ -2,4 +2,6 @@
 .env
 .venv
 mongo-data
-frontend 
+# Exclude node_modules in e-commerce-frontend
+e-commerce-frontend/node_modules
+e-commerce-frontend/.next
