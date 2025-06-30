@@ -1,0 +1,318 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 94.1%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  
+  /* Improve touch targets on mobile */
+  button, a, [role="button"] {
+    @apply touch-manipulation;
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve focus states for accessibility */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+  
+  /* Prevent text selection on interactive elements */
+  button, a {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Improve mobile scrolling */
+  .mobile-scroll-smooth {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+  
+  /* Mobile-friendly image handling */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Improve mobile form elements */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Mobile touch feedback */
+  .mobile-touch-feedback {
+    @apply active:scale-95 transition-transform duration-75;
+  }
+  
+  /* Mobile navigation improvements */
+  .mobile-nav-overlay {
+    @apply fixed inset-0 bg-black/50 z-40 lg:hidden;
+  }
+  
+  /* Mobile card improvements */
+  .mobile-card-touch {
+    @apply active:scale-[0.98] transition-transform duration-75;
+  }
+  
+  /* Mobile button improvements */
+  .mobile-btn-touch {
+    @apply active:scale-95 transition-transform duration-75;
+  }
+  
+  /* Mobile safe area for notched devices */
+  .mobile-safe-area-top {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  .mobile-safe-area-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  .mobile-safe-area-left {
+    padding-left: env(safe-area-inset-left);
+  }
+  
+  .mobile-safe-area-right {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+  }
+  
+  .btn-outline {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent;
+  }
+  
+  /* Mobile-specific utilities */
+  .mobile-touch-target {
+    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+  }
+  
+  .mobile-safe-area {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  .mobile-text-responsive {
+    @apply text-sm sm:text-base lg:text-lg;
+  }
+  
+  .mobile-heading-responsive {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  /* Mobile-friendly spacing */
+  .mobile-spacing {
+    @apply space-y-4 sm:space-y-6 lg:space-y-8;
+  }
+  
+  .mobile-padding {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  
+  /* Mobile grid layouts */
+  .mobile-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6;
+  }
+  
+  .mobile-grid-2 {
+    @apply grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6;
+  }
+  
+  .mobile-grid-3 {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6;
+  }
+  
+  /* Mobile navigation improvements */
+  .mobile-nav-item {
+    @apply block w-full text-left px-4 py-3 text-base font-medium hover:bg-gray-50 transition-colors;
+  }
+  
+  /* Mobile button improvements */
+  .mobile-btn {
+    @apply w-full sm:w-auto h-12 sm:h-10 text-base sm:text-sm font-medium;
+  }
+  
+  /* Mobile card improvements */
+  .mobile-card {
+    @apply h-full flex flex-col overflow-hidden;
+  }
+  
+  /* Mobile form improvements */
+  .mobile-input {
+    @apply w-full h-12 px-4 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+  
+  /* Mobile section improvements */
+  .mobile-section {
+    @apply py-8 sm:py-12 lg:py-16;
+  }
+  
+  /* Mobile header improvements */
+  .mobile-header {
+    @apply h-16 flex items-center justify-between px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Mobile footer improvements */
+  .mobile-footer {
+    @apply py-8 sm:py-12 px-4 sm:px-6 lg:px-8;
+  }
+  
+  /* Mobile search improvements */
+  .mobile-search {
+    @apply w-full h-12 pl-12 pr-4 text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+  
+  /* Mobile product card improvements */
+  .mobile-product-card {
+    @apply h-full flex flex-col overflow-hidden bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow;
+  }
+  
+  /* Mobile cart improvements */
+  .mobile-cart-item {
+    @apply flex items-center space-x-4 p-4 border-b border-gray-200;
+  }
+  
+  /* Mobile checkout improvements */
+  .mobile-checkout-form {
+    @apply space-y-6 p-4 sm:p-6;
+  }
+  
+  /* Mobile admin improvements */
+  .mobile-admin-panel {
+    @apply p-4 sm:p-6 lg:p-8;
+  }
+  
+  /* Mobile responsive text */
+  .mobile-text-xs { @apply text-xs; }
+  .mobile-text-sm { @apply text-sm; }
+  .mobile-text-base { @apply text-base; }
+  .mobile-text-lg { @apply text-lg; }
+  .mobile-text-xl { @apply text-xl; }
+  .mobile-text-2xl { @apply text-2xl; }
+  .mobile-text-3xl { @apply text-3xl; }
+  
+  @media (min-width: 640px) {
+    .mobile-text-xs { @apply text-sm; }
+    .mobile-text-sm { @apply text-base; }
+    .mobile-text-base { @apply text-lg; }
+    .mobile-text-lg { @apply text-xl; }
+    .mobile-text-xl { @apply text-2xl; }
+    .mobile-text-2xl { @apply text-3xl; }
+    .mobile-text-3xl { @apply text-4xl; }
+  }
+  
+  @media (min-width: 1024px) {
+    .mobile-text-xs { @apply text-base; }
+    .mobile-text-sm { @apply text-lg; }
+    .mobile-text-base { @apply text-xl; }
+    .mobile-text-lg { @apply text-2xl; }
+    .mobile-text-xl { @apply text-3xl; }
+    .mobile-text-2xl { @apply text-4xl; }
+    .mobile-text-3xl { @apply text-5xl; }
+  }
+  
+  /* Mobile loading states */
+  .mobile-loading {
+    @apply flex items-center justify-center py-8 sm:py-12;
+  }
+  
+  /* Mobile empty states */
+  .mobile-empty {
+    @apply text-center py-8 sm:py-12 text-muted-foreground;
+  }
+  
+  /* Mobile error states */
+  .mobile-error {
+    @apply text-center py-8 sm:py-12 text-destructive;
+  }
+  
+  /* Mobile success states */
+  .mobile-success {
+    @apply text-center py-8 sm:py-12 text-green-600;
+  }
+} 

@@ -8,7 +8,7 @@ class ProductCreate(BaseModel):
     description: Optional[str] = None
     price: float
     category: str
-    inventory_count: int = 0
+    stock: int = 0
     image_url: Optional[str] = None
 
 class ProductUpdate(BaseModel):
@@ -17,7 +17,7 @@ class ProductUpdate(BaseModel):
     description: Optional[str] = None
     price: Optional[float] = None
     category: Optional[str] = None
-    inventory_count: Optional[int] = None
+    stock: Optional[int] = None
     image_url: Optional[str] = None
 
 class OrderStatusUpdate(BaseModel):
@@ -52,7 +52,7 @@ class Product(BaseModel):
     description: Optional[str] = None
     price: float
     category: str
-    inventory_count: int
+    stock: int
     image_url: Optional[str] = None
     created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
