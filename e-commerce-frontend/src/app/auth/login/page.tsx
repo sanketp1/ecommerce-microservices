@@ -35,9 +35,9 @@ function LoginPageInner() {
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       setIsGoogleLoading(true);
-      console.log('[Google OAuth] onSuccess tokenResponse:', tokenResponse);
+      // console.log('[Google OAuth] onSuccess tokenResponse:', tokenResponse);
       try {
-        const res = await axios.post('http://localhost/api/auth/google', {
+        const res = await axios.post(`${process.env.AUTH_SERVICE_URL}/api/auth/google`, {
           token: (tokenResponse as any).credential || (tokenResponse as any).access_token,
         });
         console.log('[Google OAuth] Backend /api/auth/google response:', res);
