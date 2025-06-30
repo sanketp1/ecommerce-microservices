@@ -18,7 +18,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/next.config.js ./
 COPY --from=builder /app/tsconfig.json ./
 COPY --from=builder /app/src ./src
-# Optionally copy .env if present
-COPY .env .env
+
+
 EXPOSE 3000
 CMD ["npm", "start"] 
