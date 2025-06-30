@@ -1,0 +1,182 @@
+services:
+  - name: auth-service
+    type: web
+    runtime: docker
+    repo: https://github.com/sanketp1/ecommerce-microservices.git
+    region: oregon
+    plan: free
+    dockerContext: ./auth-service
+    dockerfilePath: ./auth-service/Dockerfile
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: DATABASE_NAME
+        value: ecommerce
+      - key: JWT_SECRET
+        value: 8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRATION_HOURS
+        value: 24
+      - key: GOOGLE_CLIENT_ID
+        value: 829203699628-t5h8vm6epgcmessd22t7324ojtk3pohk.apps.googleusercontent.com
+      - key: GOOGLE_CLIENT_SECRET
+        value: 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
+      - key: DEFAULT_ADMIN_EMAIL
+        value: admin@ecommerce.com
+      - key: DEFAULT_ADMIN_PASSWORD
+        value: Admin@123456
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PORT
+        value: 8000
+
+  - name: product-service
+    type: web
+    runtime: docker
+    repo: https://github.com/sanketp1/ecommerce-microservices.git
+    region: oregon
+    plan: free
+    dockerContext: ./product-service
+    dockerfilePath: ./product-service/Dockerfile
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: DATABASE_NAME
+        value: ecommerce
+      - key: APP_NAME
+        value: Product Service
+      - key: APP_DESCRIPTION
+        value: Product management and catalog
+      - key: APP_VERSION
+        value: 1.0.0
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PORT
+        value: 8000
+
+  - name: cart-service
+    type: web
+    runtime: docker
+    repo: https://github.com/sanketp1/ecommerce-microservices.git
+    region: oregon
+    plan: free
+    dockerContext: ./cart-service
+    dockerfilePath: ./cart-service/Dockerfile
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: DATABASE_NAME
+        value: ecommerce
+      - key: PRODUCT_SERVICE_URL
+        value: https://product-service.onrender.com/api
+      - key: JWT_SECRET
+        value: 8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: APP_NAME
+        value: Cart Service
+      - key: APP_DESCRIPTION
+        value: Shopping cart management
+      - key: APP_VERSION
+        value: 1.0.0
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PORT
+        value: 8000
+
+  - name: payment-service
+    type: web
+    runtime: docker
+    repo: https://github.com/sanketp1/ecommerce-microservices.git
+    region: oregon
+    plan: free
+    dockerContext: ./payment-service
+    dockerfilePath: ./payment-service/Dockerfile
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: CART_SERVICE_URL
+        value: https://cart-service.onrender.com/api
+      - key: JWT_SECRET
+        value: 8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: RAZORPAY_KEY_ID
+        value: rzp_test_tawypi2EMirurq
+      - key: RAZORPAY_KEY_SECRET
+        value: ZLyo5onhL75W3aA2bIGnz5yK
+      - key: DATABASE_NAME
+        value: ecommerce
+      - key: PAYMENTS_COLLECTION
+        value: payments
+      - key: ORDERS_COLLECTION
+        value: orders
+      - key: CART_COLLECTION
+        value: cart
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PORT
+        value: 8000
+
+  - name: order-service
+    type: web
+    runtime: docker
+    repo: https://github.com/sanketp1/ecommerce-microservices.git
+    region: oregon
+    plan: free
+    dockerContext: ./order-service
+    dockerfilePath: ./order-service/Dockerfile
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: DATABASE_NAME
+        value: ecommerce
+      - key: PRODUCT_SERVICE_URL
+        value: https://product-service.onrender.com/api
+      - key: PAYMENT_SERVICE_URL
+        value: https://payment-service.onrender.com/api
+      - key: JWT_SECRET
+        value: 8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PORT
+        value: 8000
+
+  - name: admin-service
+    type: web
+    runtime: docker
+    repo: https://github.com/sanketp1/ecommerce-microservices.git
+    region: oregon
+    plan: free
+    dockerContext: ./admin-service
+    dockerfilePath: ./admin-service/Dockerfile
+    envVars:
+      - key: MONGO_URL
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      - key: DATABASE_NAME
+        value: ecommerce
+      - key: JWT_SECRET
+        value: 8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_EXPIRATION_TIME
+        value: 3600
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: PORT
+        value: 8000
