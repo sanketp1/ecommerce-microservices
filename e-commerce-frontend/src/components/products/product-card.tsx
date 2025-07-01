@@ -30,12 +30,12 @@ export function ProductCard({ product }: ProductCardProps) {
     try {
       setIsAddingToCart(true)
       await cartService.addToCart({
-        product_id: product.id,
+        product_id: product.id || '',
         quantity: 1,
       })
       
       addItem({
-        product_id: Number(product.id),
+        product_id: product.id || '',
         quantity: 1,
         product: product,
       })
