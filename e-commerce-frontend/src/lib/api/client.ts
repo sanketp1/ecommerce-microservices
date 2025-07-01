@@ -3,12 +3,12 @@ import { toast } from 'react-hot-toast';
 
 // API Base URLs - Update these with actual microservice ports
 const API_BASE_URLS = {
-  PRODUCT_SERVICE: process.env.PRODUCT_SERVICE_URL || 'http://localhost',
-  AUTH_SERVICE: process.env.AUTH_SERVICE_URL || 'http://localhost',
-  CART_SERVICE: process.env.CART_SERVICE_URL || 'http://localhost',
-  ORDER_SERVICE: process.env.ORDER_SERVICE_URL || 'http://localhost',
-  PAYMENT_SERVICE: process.env.PAYMENT_SERVICE_URL || 'http://localhost',
-  ADMIN_SERVICE: process.env.ADMIN_SERVICE_URL || 'http://localhost',
+  PRODUCT_SERVICE: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL || 'http://localhost',
+  AUTH_SERVICE: process.env.NEXT_PUBLIC_AUTH_SERVICE_URL || 'http://localhost',
+  CART_SERVICE: process.env.NEXT_PUBLIC_CART_SERVICE_URL || 'http://localhost',
+  ORDER_SERVICE: process.env.NEXT_PUBLIC_ORDER_SERVICE_URL || 'http://localhost',
+  PAYMENT_SERVICE: process.env.NEXT_PUBLIC_PAYMENT_SERVICE_URL || 'http://localhost',
+  ADMIN_SERVICE: process.env.NEXT_PUBLIC_ADMIN_SERVICE_URL || 'http://localhost',
 };
 
 // Create axios instances for each service
