@@ -1,257 +1,143 @@
 # 🛒 E-commerce Microservices Platform
 
-[![Build Status](https://img.shields.io/github/workflow/status/yourusername/your-repo/CI)](https://github.com/yourusername/your-repo/actions)
-[![Coverage Status](https://img.shields.io/codecov/c/github/yourusername/your-repo)](https://codecov.io/gh/yourusername/your-repo)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/sanketp1/ecommerce-microservices/ci.yml?branch=master)](https://github.com/sanketp1/ecommerce-microservices/actions)
+[![Coverage Status](https://img.shields.io/codecov/c/github/sanketp1/ecommerce-microservices)](https://codecov.io/gh/sanketp1/ecommerce-microservices)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](package.json)
 [![Python Version](https://img.shields.io/badge/python-%3E%3D3.10-blue.svg)](https://www.python.org)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-> A modern, scalable, microservices-based e-commerce platform built with Python, FastAPI, Next.js, and Docker for seamless online shopping experiences.
+> A modern, scalable microservices-based e-commerce platform built using **FastAPI**, **Next.js**, **Docker**, and **MongoDB** — optimized for modularity, performance, and developer experience.
 
 ---
 
 ## 🚀 Live Preview
 
-**Frontend:** [https://ecommerce-microservices-two.vercel.app/](https://ecommerce-microservices-two.vercel.app/)
-
-**Preview:**
-
-https://github.com/yourusername/ecommerce-microservices/assets/demo.mp4
-
----
-
-## 🗂️ Microservices & Documentation
-
-| Service         | Docs URL                                                                 |
-|----------------|--------------------------------------------------------------------------|
-| Product        | [Product Service Docs](https://product-service-i3pr.onrender.com/api/products/docs) |
-| Cart           | [Cart Service Docs](https://cart-service-g9v1.onrender.com/api/cart/docs)         |
-| Payment        | [Payment Service Docs](https://payment-service-2bg9.onrender.com/api/payments/docs) |
-| Order          | [Order Service Docs](https://order-service-34yt.onrender.com/api/orders/docs)      |
-| Auth           | [Auth Service Docs](https://auth-service-v19t.onrender.com/auth/docs)             |
-| Admin          | [Admin Service Docs](https://admin-service-553d.onrender.com/admin/docs)          |
-
----
-
-## 🌟 Features
-
-- 🔐 **Authentication & Authorization** (JWT-based, Google OAuth)
-- 🛍️ **Product Management** (CRUD, categories, admin panel)
-- 🛒 **Shopping Cart** (real-time, persistent)
-- 💳 **Payment Integration** (Razorpay, secure)
-- 📊 **Admin Dashboard** (orders, users, analytics)
-- 🚚 **Order Management** (tracking, status updates)
-- 🔔 **Real-time Notifications**
-- 📈 **Analytics** (sales, user behavior)
-- 🧩 **Microservices** (modular, scalable)
-- 🐳 **Dockerized** (easy deployment)
-
----
-
-## 🏗️ Architecture Overview
-
-```mermaid
-graph TD
-  A[Client/Browser] --> B[Traefik Load Balancer]
-  B --> C[Frontend (Next.js/Vercel)]
-  C --> D[API Gateway]
-  D --> E[Auth Service]
-  D --> F[Product Service]
-  D --> G[Order Service]
-  D --> H[Payment Service]
-  D --> I[Cart Service]
-  D --> J[Admin Service]
-  E --> K[User Database]
-  F --> L[Product Database]
-  G --> M[Order Database]
-  H --> N[Razorpay API]
-  F --> O[Cache/Queue (future)]
-  G --> P[Email Service (future)]
-  C --> Q[CDN - Static Assets]
-```
+* **Frontend:** [ecommerce-microservices-two.vercel.app](https://ecommerce-microservices-two.vercel.app/)
+* **Demo Video:** *Coming Soon or insert your actual video URL*
 
 ---
 
 ## 🛠️ Tech Stack
 
-- **Frontend:** Next.js, React, Tailwind CSS, Vercel
-- **Backend:** Python, FastAPI, Uvicorn
-- **Database:** MongoDB
-- **Payments:** Razorpay
-- **DevOps:** Docker, Traefik, AWS (optional)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge\&logo=python\&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge\&logo=fastapi\&logoColor=white)
+![Next JS](https://img.shields.io/badge/Next.js-000000?style=for-the-badge\&logo=nextdotjs\&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge\&logo=tailwind-css\&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge\&logo=mongodb\&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)
+![Traefik](https://img.shields.io/badge/Traefik-24B3A8?style=for-the-badge\&logo=traefikproxy\&logoColor=white)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-326CE5?style=for-the-badge\&logo=kubernetes\&logoColor=white)
+![Render](https://img.shields.io/badge/Render-46E3B7?style=for-the-badge\&logo=render\&logoColor=black)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge\&logo=github-actions\&logoColor=white)
 
 ---
 
-## 📚 API Documentation
+## 🗂️ Microservices & API Docs
 
-Each microservice exposes its own OpenAPI/Swagger documentation:
-
-- [Product Service Docs](https://product-service-i3pr.onrender.com/api/products/docs)
-- [Cart Service Docs](https://cart-service-g9v1.onrender.com/api/cart/docs)
-- [Payment Service Docs](https://payment-service-2bg9.onrender.com/api/payments/docs)
-- [Order Service Docs](https://order-service-34yt.onrender.com/api/orders/docs)
-- [Auth Service Docs](https://auth-service-v19t.onrender.com/api/auth/docs)
-- [Admin Service Docs](https://admin-service-553d.onrender.com/api/admin/docs)
+| Service | Documentation URL                                                                   |
+| ------- | ----------------------------------------------------------------------------------- |
+| Auth    | [Auth Service Docs](https://auth-service-v19t.onrender.com/auth/docs)               |
+| Product | [Product Service Docs](https://product-service-i3pr.onrender.com/api/products/docs) |
+| Cart    | [Cart Service Docs](https://cart-service-g9v1.onrender.com/api/cart/docs)           |
+| Payment | [Payment Service Docs](https://payment-service-2bg9.onrender.com/api/payments/docs) |
+| Order   | [Order Service Docs](https://order-service-34yt.onrender.com/api/orders/docs)       |
+| Admin   | [Admin Service Docs](https://admin-service-553d.onrender.com/api/admin/docs)        |
 
 ---
 
-## 🧩 Microservices Overview
+## 🌟 Key Features
 
-### Product Service
-- Product CRUD, categories, search, filtering
-- [API Docs](https://product-service-i3pr.onrender.com/api/products/docs)
+* 🔐 **Authentication & Authorization** – JWT, Google OAuth2
+* 🛍️ **Product Catalog & Search** – Admin-managed listings with filters
+* 🛒 **Persistent Shopping Cart** – Real-time updates per user session
+* 💳 **Payments Integration** – Secure checkout via Razorpay
+* 📊 **Admin Dashboard** – Analytics, user/order/product management
+* 🚚 **Order Tracking** – End-to-end delivery flow
+* 🧠 **Scalable Microservices Architecture** – Independent deployments
+* 🐳 **Docker-First Development** – Built for containerization
 
-### Cart Service
-- Add/remove/update cart items, persistent cart
-- [API Docs](https://cart-service-g9v1.onrender.com/api/cart/docs)
+---
 
-### Payment Service
-- Payment order creation, verification (Razorpay)
-- [API Docs](https://payment-service-2bg9.onrender.com/api/payments/docs)
+## 🏗️ Architecture Diagram
 
-### Order Service
-- Order creation, status, user order history
-- [API Docs](https://order-service-34yt.onrender.com/api/orders/docs)
-
-### Auth Service
-- JWT authentication, Google OAuth, user management
-- [API Docs](https://auth-service-v19t.onrender.com/auth/docs)
-
-### Admin Service
-- Admin dashboard, user/order/product management
-- [API Docs](https://admin-service-553d.onrender.com/admin/docs)
+```mermaid
+graph TD
+  A["Client/Browser"] --> B["Traefik Load Balancer"]
+  B --> C["Frontend (Next.js/Vercel)"]
+  C --> D["API Gateway"]
+  D --> E["Auth Service"]
+  D --> F["Product Service"]
+  D --> G["Order Service"]
+  D --> H["Payment Service"]
+  D --> I["Cart Service"]
+  D --> J["Admin Service"]
+  E --> K["User Database"]
+  F --> L["Product Database"]
+  G --> M["Order Database"]
+  H --> N["Razorpay API"]
+  F --> O["Cache/Queue (future)"]
+  G --> P["Email Service (future)"]
+  C --> Q["CDN - Static Assets"]
+```
 
 ---
 
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Python 3.10+
-- Node.js 18+
-- Docker & Docker Compose
-- MongoDB (if running locally)
-- Git
 
-### Manual Installation
+* Python 3.10+
+* Node.js 18+
+* Docker & Docker Compose
+* MongoDB (if running locally)
+* Git
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/ecommerce-microservices.git
-   cd ecommerce-microservices
-   ```
+### Manual Setup
 
-2. **Install dependencies for each service**
-   ```bash
-   for service in auth-service product-service cart-service payment-service order-service admin-service; do
-     cd $service
-     pip install -r requirements.txt
-     cd ..
-   done
-   cd e-commerce-frontend
-   npm install
-   ```
+```bash
+git clone https://github.com/sanketp1/ecommerce-microservices.git
+cd ecommerce-microservices
+```
 
-3. **Environment Configuration**
-   - Create a `.env` file in the root directory and each service as needed (see sample in repo)
+Install service dependencies:
 
-4. **Database Setup**
-   ```bash
-   # Start MongoDB service (if not using Docker)
-   sudo systemctl start mongod
-   ```
+```bash
+for service in auth-service product-service cart-service payment-service order-service admin-service; do
+  cd $service
+  pip install -r requirements.txt
+  cd ..
+done
+cd e-commerce-frontend
+npm install
+```
 
-5. **Run the application**
-   ```bash
-   # Start each backend service (example for auth-service)
-   cd auth-service
-   uvicorn app.main:app --reload --port 8000
-   # Start frontend
-   cd ../e-commerce-frontend
-   npm run dev
-   ```
+Run MongoDB and start services:
 
-6. **Access the application**
-   - Frontend: http://localhost:3000
-   - Swagger Docs: http://localhost:<service-port>/docs
+```bash
+sudo systemctl start mongod
+uvicorn app.main:app --reload  # per service
+npm run dev  # for frontend
+```
 
-### 🐳 Docker Installation
+### Docker Quick Start
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/ecommerce-microservices.git
-   cd ecommerce-microservices
-   ```
+```bash
+docker-compose up -d --build
+docker-compose logs -f
+docker-compose down
+```
 
-2. **Create environment files**
-   ```bash
-   cp .env.example .env
-   # Edit the .env file with your configuration
-   ```
+Access:
 
-3. **Run with Docker Compose**
-   ```bash
-   docker-compose up -d --build
-   docker-compose logs -f
-   docker-compose down
-   ```
-
-4. **Access the application**
-   - Frontend: http://localhost:3000
-   - Traefik Dashboard: http://monitor.localhost:8080
-   - MongoDB: localhost:27017
-
-### 🐳 Docker Compose Quick Start
-
-You can run the entire stack (all microservices, frontend, and MongoDB) locally with Docker Compose.
-
-### Prerequisites
-
-- [Docker](https://www.docker.com/get-started)
-- [Docker Compose](https://docs.docker.com/compose/)
-
-### Usage
-
-1. **Clone the repository**
-   ```sh
-   git clone https://github.com/yourusername/ecommerce-microservices.git
-   cd ecommerce-microservices
-   ```
-
-2. **Copy and edit environment variables**
-   ```sh
-   cp .env.example .env
-   # Edit .env as needed
-   ```
-
-3. **Start all services**
-   ```sh
-   docker-compose up --build
-   ```
-
-4. **Access the services**
-   - **Frontend:** http://localhost:3000
-   - **Auth Service:** http://localhost:8000/api/auth
-   - **Product Service:** http://localhost:8000/api/products
-   - **Cart Service:** http://localhost:8000/api/cart
-   - **Order Service:** http://localhost:8000/api/orders
-   - **Payment Service:** http://localhost:8000/api/payments
-   - **Admin Service:** http://localhost:8000/api/admin
-   - **Traefik Dashboard:** http://monitor.localhost:8080
-
-5. **Stop all services**
-   ```sh
-   docker-compose down
-   ```
-
-For more details, see [`docker-compose.yml`](./docker-compose.yml).
+* Frontend: [http://localhost:3000](http://localhost:3000)
+* Traefik Dashboard: [http://monitor.localhost:8080](http://monitor.localhost:8080)
 
 ---
 
 ## 🧪 Testing
 
 ```bash
-# Run tests for each service
 for service in auth-service product-service cart-service payment-service order-service admin-service; do
   cd $service
   python -m pytest
@@ -264,43 +150,40 @@ done
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+2. Create your branch (`git checkout -b feature/AmazingFeature`)
+3. Commit and push your changes
+4. Open a Pull Request
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
 
 ---
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+Licensed under the MIT License. See the [LICENSE](LICENSE) file.
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Thanks to all contributors who helped build this project
-- Inspired by modern e-commerce platforms
-- Special thanks to the open-source community
+* Thanks to all contributors
+* Inspired by modern e-commerce platforms
+* Powered by open source
 
 ---
 
 ## 📞 Support
 
-If you have any questions or need help, please:
-- Open an issue on GitHub
-- Contact: psanket18052001@gmail.com
+* GitHub Issues
+* Email: [psanket18052001@gmail.com](mailto:psanket18052001@gmail.com)
 
 ---
-
 
 <div align="center">
   <h3>Made with ❤️ by Sanket</h3>
   <p>
     <a href="https://github.com/sanketp1">GitHub</a> •
     <a href="https://linkedin.com/in/psanket18">LinkedIn</a> •
-    <a href="https://twitter.com/p_sanket18">X</a>
+    <a href="https://twitter.com/p_sanket18">Twitter/X</a>
   </p>
 </div>
