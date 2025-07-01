@@ -73,7 +73,7 @@ services:
       - key: DATABASE_NAME
         value: ecommerce
       - key: PRODUCT_SERVICE_URL
-        value: https://product-service.onrender.com/api
+        value: https://product-service-i3pr.onrender.com/api
       - key: JWT_SECRET
         value: 8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d
       - key: JWT_ALGORITHM
@@ -103,7 +103,7 @@ services:
       - key: MONGO_URL
         value: mongodb+srv://ecommerce:Fiqpp7732f@cluster0.uedgs78.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0
       - key: CART_SERVICE_URL
-        value: https://cart-service.onrender.com/api
+        value: https://cart-service-g9v1.onrender.com/api
       - key: JWT_SECRET
         value: 8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d
       - key: JWT_ALGORITHM
@@ -141,9 +141,9 @@ services:
       - key: DATABASE_NAME
         value: ecommerce
       - key: PRODUCT_SERVICE_URL
-        value: https://product-service.onrender.com/api
+        value: https://product-service-i3pr.onrender.com/api
       - key: PAYMENT_SERVICE_URL
-        value: https://payment-service.onrender.com/api
+        value: https://payment-service-2bg9.onrender.com/api
       - key: JWT_SECRET
         value: 8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d8f3c7a1b5d9e2f6a4c0b9e7d2a5f8c3e1d7a9b4c2e6f8d1a3b5c7e9f0d2a4b6d
       - key: JWT_ALGORITHM

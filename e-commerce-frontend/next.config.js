@@ -1,16 +1,16 @@
 /** @type {import('next').NextConfig} */
 
 
-// console.log(process.env.PRODUCT_SERVICE_URL);
-// console.log(process.env.AUTH_SERVICE_URL);
-// console.log(process.env.CART_SERVICE_URL);
-// console.log(process.env.ORDER_SERVICE_URL);
-// console.log(process.env.PAYMENT_SERVICE_URL);
-// console.log(process.env.ADMIN_SERVICE_URL);
-// console.log(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
-// console.log(process.env.RAZORPAY_KEY_SECRET);
-// console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
-// console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET);
+console.log(process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL);
+console.log(process.env.NEXT_PUBLIC_AUTH_SERVICE_URL);
+console.log(process.env.NEXT_PUBLIC_CART_SERVICE_URL);
+console.log(process.env.NEXT_PUBLIC_ORDER_SERVICE_URL);
+console.log(process.env.NEXT_PUBLIC_PAYMENT_SERVICE_URL);
+console.log(process.env.NEXT_PUBLIC_ADMIN_SERVICE_URL);
+console.log(process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
+console.log(process.env.RAZORPAY_KEY_SECRET);
+console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID);
+console.log(process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET);
 
 const nextConfig = {
   images: {
@@ -40,27 +40,27 @@ const nextConfig = {
     return [
       {
         source: '/api/products/:path*',
-        destination: process.env.PRODUCT_SERVICE_URL || 'http://localhost',
+        destination: process.env.NEXT_PUBLIC_PRODUCT_SERVICE_URL || 'http://localhost',
       },
       {
         source: '/api/auth/:path*',
-        destination: process.env.AUTH_SERVICE_URL || 'http://localhost',
+        destination: process.env.NEXT_PUBLIC_AUTH_SERVICE_URL || 'http://localhost',
       },
       {
         source: '/api/cart/:path*',
-        destination: process.env.CART_SERVICE_URL || 'http://localhost',
+        destination: process.env.NEXT_PUBLIC_CART_SERVICE_URL || 'http://localhost',
       },
       {
         source: '/api/orders/:path*',
-        destination: process.env.ORDER_SERVICE_URL || 'http://localhost',
+        destination: process.env.NEXT_PUBLIC_ORDER_SERVICE_URL || 'http://localhost',
       },
       {
         source: '/api/payments/:path*',
-        destination: process.env.PAYMENT_SERVICE_URL || 'http://localhost',
+        destination: process.env.NEXT_PUBLIC_PAYMENT_SERVICE_URL || 'http://localhost',
       },
       {
         source: '/api/admin/:path*',
-        destination: process.env.ADMIN_SERVICE_URL || 'http://localhost',
+        destination: process.env.NEXT_PUBLIC_ADMIN_SERVICE_URL || 'http://localhost',
       },
     ]
   },
