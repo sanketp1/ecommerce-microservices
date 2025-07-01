@@ -13,7 +13,7 @@ class ProductService:
         # self.base_url = 'http://127.0.0.1:8080'
         self.timeout = 30.0
     
-    async def get_product_details(self, product_id: int) -> Optional[Dict[str, Any]]:
+    async def get_product_details(self, product_id: str) -> Optional[Dict[str, Any]]:
         """Get product details from product service."""
         try:
             logger.info(f"Calling product service: {self.base_url}/products/{product_id}")

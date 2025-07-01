@@ -142,7 +142,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       setIsAddingToCart(true)
       // Add to cart via API
       await cartService.addToCart({
-        product_id: Number(product.id),
+        product_id: product.id,
         quantity: quantity,
       })
       

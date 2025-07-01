@@ -37,7 +37,7 @@ async def add_to_cart(
 
 @router.delete("/remove/{product_id}", response_model=Dict[str, str])
 async def remove_from_cart(
-    product_id: int,
+    product_id: str,
     current_user: dict = Depends(get_current_user),
     cart_service: CartService = Depends(get_cart_service)
 ):
@@ -54,7 +54,7 @@ async def remove_from_cart(
 
 @router.put("/update/{product_id}/{quantity}", response_model=Dict[str, str])
 async def update_item_quantity(
-    product_id: int,
+    product_id: str,
     quantity: int,
     current_user: dict = Depends(get_current_user),
     cart_service: CartService = Depends(get_cart_service)
