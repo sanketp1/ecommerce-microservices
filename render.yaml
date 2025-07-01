@@ -9,7 +9,7 @@ services:
     dockerfilePath: ./auth-service/Dockerfile
     envVars:
       - key: MONGO_URL
-        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true&ssl_cert_reqs=CERT_NONE
       - key: DATABASE_NAME
         value: ecommerce
       - key: JWT_SECRET
@@ -43,7 +43,7 @@ services:
     dockerfilePath: ./product-service/Dockerfile
     envVars:
       - key: MONGO_URL
-        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true&ssl_cert_reqs=CERT_NONE
       - key: DATABASE_NAME
         value: ecommerce
       - key: APP_NAME
@@ -69,7 +69,7 @@ services:
     dockerfilePath: ./cart-service/Dockerfile
     envVars:
       - key: MONGO_URL
-        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true&ssl_cert_reqs=CERT_NONE
       - key: DATABASE_NAME
         value: ecommerce
       - key: PRODUCT_SERVICE_URL
@@ -101,7 +101,7 @@ services:
     dockerfilePath: ./payment-service/Dockerfile
     envVars:
       - key: MONGO_URL
-        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true&ssl_cert_reqs=CERT_NONE
       - key: CART_SERVICE_URL
         value: https://cart-service.onrender.com/api
       - key: JWT_SECRET
@@ -137,7 +137,7 @@ services:
     dockerfilePath: ./order-service/Dockerfile
     envVars:
       - key: MONGO_URL
-        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true&ssl_cert_reqs=CERT_NONE
       - key: DATABASE_NAME
         value: ecommerce
       - key: PRODUCT_SERVICE_URL
@@ -165,7 +165,7 @@ services:
     dockerfilePath: ./admin-service/Dockerfile
     envVars:
       - key: MONGO_URL
-        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+        value: mongodb+srv://patilsanket200128:2V6AFboioJew9jxa@cluster0.rjnbv8d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0&ssl=true&ssl_cert_reqs=CERT_NONE
       - key: DATABASE_NAME
         value: ecommerce
       - key: JWT_SECRET

@@ -25,32 +25,34 @@ class UserRepository:
         if auth_provider:
             user_dict["auth_provider"] = auth_provider
         
-        self.collection.insert_one(user_dict)
+        await self.collection.insert_one(user_dict)
         return UserInDB(**user_dict)
     
     async def get_user_by_email(self, email: str) -> Optional[UserInDB]:
-        user_data = self.collection.find_one({"email": email})
+        user_data = await self.collection.find_one({"email": email})
         if user_data:
             user_data.pop("_id", None)
             return UserInDB(**user_data)
         return None
     
     async def get_user_by_id(self, user_id: str) -> Optional[UserInDB]:
-        user_data = self.collection.find_one({"id": user_id})
+        user_data = await self.collection.find_one({"id": user_id})
         if user_data:
             user_data.pop("_id", None)
             return UserInDB(**user_data)
         return None
     
     async def get_all_users(self) -> List[Dict[str, Any]]:
-        users = list(self.collection.find({}, {"_id": 0, "password": 0}))
+        cursor = self.collection.find({}, {"_id": 0, "password": 0})
+        users = await cursor.to_list(length=None)
         return users
     
     async def user_exists(self, email: str) -> bool:
-        return self.collection.find_one({"email": email}) is not None
+        user = await self.collection.find_one({"email": email})
+        return user is not None
     
     async def update_user(self, user_id: str, update_data: Dict[str, Any]) -> bool:
-        result = self.collection.update_one(
+        result = await self.collection.update_one(
             {"id": user_id},
             {"$set": update_data}
         )
