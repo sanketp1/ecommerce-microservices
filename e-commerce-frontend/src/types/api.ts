@@ -78,12 +78,12 @@ export interface GoogleAuthRequest {
 
 // Cart Service Types
 export interface CartItem {
-  product_id: number;
+  product_id: string;
   quantity: number;
 }
 
 export interface CartItemResponse {
-  product_id: number;
+  product_id: string;
   quantity: number;
   product?: Product | null;
 }

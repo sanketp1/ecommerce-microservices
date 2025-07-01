@@ -52,23 +52,23 @@ https://github.com/yourusername/ecommerce-microservices/assets/demo.mp4
 ## 🏗️ Architecture Overview
 
 ```mermaid
-graph TB
-    A[Client/Browser] --> B[Traefik Load Balancer]
-    B --> C[Frontend (Next.js/Vercel)]
-    C --> D[API Gateway]
-    D --> E[Auth Service]
-    D --> F[Product Service]
-    D --> G[Order Service]
-    D --> H[Payment Service]
-    D --> I[Cart Service]
-    D --> J[Admin Service]
-    E --> K[(User Database)]
-    F --> L[(Product Database)]
-    G --> M[(Order Database)]
-    H --> N[Razorpay API]
-    F --> O[Cache/Queue (future)]
-    G --> P[Email Service (future)]
-    C --> Q[CDN - Static Assets]
+graph TD
+  A[Client/Browser] --> B[Traefik Load Balancer]
+  B --> C[Frontend (Next.js/Vercel)]
+  C --> D[API Gateway]
+  D --> E[Auth Service]
+  D --> F[Product Service]
+  D --> G[Order Service]
+  D --> H[Payment Service]
+  D --> I[Cart Service]
+  D --> J[Admin Service]
+  E --> K[User Database]
+  F --> L[Product Database]
+  G --> M[Order Database]
+  H --> N[Razorpay API]
+  F --> O[Cache/Queue (future)]
+  G --> P[Email Service (future)]
+  C --> Q[CDN - Static Assets]
 ```
 
 ---
@@ -91,8 +91,8 @@ Each microservice exposes its own OpenAPI/Swagger documentation:
 - [Cart Service Docs](https://cart-service-g9v1.onrender.com/api/cart/docs)
 - [Payment Service Docs](https://payment-service-2bg9.onrender.com/api/payments/docs)
 - [Order Service Docs](https://order-service-34yt.onrender.com/api/orders/docs)
-- [Auth Service Docs](https://auth-service-v19t.onrender.com/auth/docs)
-- [Admin Service Docs](https://admin-service-553d.onrender.com/admin/docs)
+- [Auth Service Docs](https://auth-service-v19t.onrender.com/api/auth/docs)
+- [Admin Service Docs](https://admin-service-553d.onrender.com/api/admin/docs)
 
 ---
 
@@ -201,6 +201,51 @@ Each microservice exposes its own OpenAPI/Swagger documentation:
    - Traefik Dashboard: http://monitor.localhost:8080
    - MongoDB: localhost:27017
 
+### 🐳 Docker Compose Quick Start
+
+You can run the entire stack (all microservices, frontend, and MongoDB) locally with Docker Compose.
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+### Usage
+
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/yourusername/ecommerce-microservices.git
+   cd ecommerce-microservices
+   ```
+
+2. **Copy and edit environment variables**
+   ```sh
+   cp .env.example .env
+   # Edit .env as needed
+   ```
+
+3. **Start all services**
+   ```sh
+   docker-compose up --build
+   ```
+
+4. **Access the services**
+   - **Frontend:** http://localhost:3000
+   - **Auth Service:** http://localhost:8000/api/auth
+   - **Product Service:** http://localhost:8000/api/products
+   - **Cart Service:** http://localhost:8000/api/cart
+   - **Order Service:** http://localhost:8000/api/orders
+   - **Payment Service:** http://localhost:8000/api/payments
+   - **Admin Service:** http://localhost:8000/api/admin
+   - **Traefik Dashboard:** http://monitor.localhost:8080
+
+5. **Stop all services**
+   ```sh
+   docker-compose down
+   ```
+
+For more details, see [`docker-compose.yml`](./docker-compose.yml).
+
 ---
 
 ## 🧪 Testing
@@ -246,8 +291,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 If you have any questions or need help, please:
 - Open an issue on GitHub
-- Contact: your-email@example.com
-- Join our Discord: [Discord Link]
+- Contact: psanket18052001@gmail.com
 
 ---
 
@@ -255,8 +299,8 @@ If you have any questions or need help, please:
 <div align="center">
   <h3>Made with ❤️ by Sanket</h3>
   <p>
-    <a href="https://github.com/sanket">GitHub</a> •
-    <a href="https://linkedin.com/in/sanket">LinkedIn</a> •
-    <a href="https://twitter.com/sanket">Twitter</a>
+    <a href="https://github.com/sanketp1">GitHub</a> •
+    <a href="https://linkedin.com/in/psanket18">LinkedIn</a> •
+    <a href="https://twitter.com/p_sanket18">X</a>
   </p>
 </div>

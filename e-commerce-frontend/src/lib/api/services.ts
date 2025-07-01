@@ -100,12 +100,12 @@ export const cartService = {
   },
 
   // Remove from cart
-  removeFromCart: async (productId: number) => {
+  removeFromCart: async (productId: string) => {
     return apiWrapper(() => cartApi.delete(`/api/cart/remove/${productId}`));
   },
 
   // Update quantity
-  updateQuantity: async (productId: number, quantity: number) => {
+  updateQuantity: async (productId: string, quantity: number) => {
     return apiWrapper(() => cartApi.put(`/api/cart/update/${productId}/${quantity}`));
   },
 

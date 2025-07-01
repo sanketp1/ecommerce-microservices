@@ -142,13 +142,13 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
       setIsAddingToCart(true)
       // Add to cart via API
       await cartService.addToCart({
-        product_id: product.id,
+        product_id: product.id || '',
         quantity: quantity,
       })
       
       // Update local cart state
       addItem({
-        product_id: Number(product.id),
+        product_id: product.id || '',
         quantity: quantity,
         product: product,
       })
@@ -171,10 +171,10 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
     
     try {
       // Remove from cart via API
-      await cartService.removeFromCart(Number(product.id));
+      await cartService.removeFromCart(product.id || '');
       
       // Update local cart state
-      removeItem(Number(product.id));
+      removeItem(product.id || '');
       
       // Sync cart with backend to ensure consistency
       const { syncCart } = useCartStore.getState();
@@ -187,7 +187,7 @@ export default function ProductDetailPage({ params }: ProductDetailPageProps) {
   }
 
   // Get current cart quantity
-  const cartQuantity = product ? getItemQuantity(Number(product.id)) : 0
+  const cartQuantity = product ? getItemQuantity(product.id || '') : 0
 
   // Calculate average rating
   const averageRating = reviews.length > 0 

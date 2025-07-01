@@ -17,7 +17,7 @@ export default function CartPage() {
   const [cart, setCartState] = useState<CartResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [updatingId, setUpdatingId] = useState<number | null>(null);
+  const [updatingId, setUpdatingId] = useState<string | null>(null);
 
   const fetchCart = async () => {
     setLoading(true);
@@ -43,7 +43,7 @@ export default function CartPage() {
     // eslint-disable-next-line
   }, [isAuthenticated]);
 
-  const handleUpdateQuantity = async (product_id: number, quantity: number) => {
+  const handleUpdateQuantity = async (product_id: string, quantity: number) => {
     if (quantity < 1) return;
     setUpdatingId(product_id);
     // Optimistic update
@@ -73,7 +73,7 @@ export default function CartPage() {
     }
   };
 
-  const handleRemove = async (product_id: number) => {
+  const handleRemove = async (product_id: string) => {
     setUpdatingId(product_id);
     // Optimistic update
     const prevItems = [...items];

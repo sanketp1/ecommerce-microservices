@@ -12,12 +12,12 @@ interface CartState {
 interface CartActions {
   setCart: (items: CartItemResponse[], total: number) => void;
   addItem: (item: CartItemResponse) => void;
-  removeItem: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  removeItem: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
   setLoading: (loading: boolean) => void;
   getItemCount: () => number;
-  getItemQuantity: (productId: number) => number;
+  getItemQuantity: (productId: string) => number;
   syncCart: () => Promise<void>;
 }
 
@@ -69,7 +69,7 @@ export const useCartStore = create<CartStore>()(
           }
         }),
 
-      removeItem: (productId) =>
+      removeItem: (productId: string) =>
         set((state) => {
           const updatedItems = state.items.filter(
             (item) => item.product_id !== productId
@@ -83,7 +83,7 @@ export const useCartStore = create<CartStore>()(
           };
         }),
 
-      updateQuantity: (productId, quantity) =>
+      updateQuantity: (productId: string, quantity: number) =>
         set((state) => {
           const updatedItems = state.items.map((item) =>
             item.product_id === productId ? { ...item, quantity } : item
@@ -113,7 +113,7 @@ export const useCartStore = create<CartStore>()(
         return state.items.reduce((sum, item) => sum + item.quantity, 0);
       },
 
-      getItemQuantity: (productId) => {
+      getItemQuantity: (productId: string) => {
         const state = get();
         const item = state.items.find((i) => i.product_id === productId);
         return item?.quantity || 0;
