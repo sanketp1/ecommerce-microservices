@@ -37,7 +37,7 @@ function LoginPageInner() {
       setIsGoogleLoading(true);
       console.log('[Google OAuth] onSuccess tokenResponse:', tokenResponse);
       try {
-        const res = await axios.post(`${process.env.NEXT_PUBLIC_AUTH_SERVICE_URL}/api/auth/google`, {
+        const res = await axios.post(`https://auth-service-v19t.onrender.com/api/auth/google`, {
           token: (tokenResponse as any).credential || (tokenResponse as any).access_token,
         });
         console.log('[Google OAuth] Backend /api/auth/google response:', res);
