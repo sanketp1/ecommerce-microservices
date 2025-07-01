@@ -26,8 +26,6 @@
 
 ## 🎬 Demo Video Preview
 
-[![Watch Demo](https://img.shields.io/badge/Watch%20Demo-Click%20to%20Play-blue?logo=playstation)](https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio//ShopHub%20-%20Modern%20E-Commerce%20Platform%20-%20Brave%202025-07-01%2021-23-44.mp4)
-
 <video src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio//ShopHub%20-%20Modern%20E-Commerce%20Platform%20-%20Brave%202025-07-01%2021-23-44.mp4" controls width="100%" style="max-width:600px; margin: 1em 0;"></video>
 
 ---
