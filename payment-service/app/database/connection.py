@@ -11,7 +11,20 @@ class DatabaseConnection:
     def __new__(cls):
         if cls._instance is None:
             cls._instance = super(DatabaseConnection, cls).__new__(cls)
-            cls._client = MongoClient(settings.MONGO_URL)
+            cls._client = MongoClient(
+                settings.MONGO_URL,
+                serverSelectionTimeoutMS=30000,
+                connectTimeoutMS=30000,
+                socketTimeoutMS=30000,
+                maxPoolSize=10,
+                minPoolSize=1,
+                maxIdleTimeMS=30000,
+                retryWrites=True,
+                retryReads=True,
+                tls=True,
+                tlsAllowInvalidCertificates=False,
+                tlsAllowInvalidHostnames=False
+            )
             cls._database = cls._client[settings.DATABASE_NAME]
         return cls._instance
     

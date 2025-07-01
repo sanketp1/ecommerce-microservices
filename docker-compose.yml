@@ -1,41 +1,41 @@
 version: '3.8'
 
 services:
-  mongo:
-    image: mongo:5.0
-    container_name: ecommerce-mongo
-    restart: always
-    volumes:
-      - mongo-data:/data/db
-      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-    env_file:
-      - .env
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-      MONGO_INITDB_DATABASE: ecommerce
-    ports:
-      - "27017:27017"
-    networks:
-      - ecommerce-net
-    healthcheck:
-      test: mongosh --eval 'db.runCommand("ping").ok' mongodb://root:${MONGO_ROOT_PASSWORD}@localhost:27017/admin?authSource=admin
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+  # mongo:
+  #   image: mongo:5.0
+  #   container_name: ecommerce-mongo
+  #   restart: always
+  #   volumes:
+  #     - mongo-data:/data/db
+  #     - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
+  #     MONGO_INITDB_DATABASE: ecommerce
+  #   ports:
+  #     - "27017:27017"
+  #   networks:
+  #     - ecommerce-net
+  #   healthcheck:
+  #     test: mongosh --eval 'db.runCommand("ping").ok' mongodb://root:${MONGO_ROOT_PASSWORD}@localhost:27017/admin?authSource=admin
+  #     interval: 10s
+  #     timeout: 5s
+  #     retries: 5
+  #     start_period: 30s
 
   auth-service:
     build: ./auth-service
     container_name: auth-service
     restart: always
-    depends_on:
-      mongo:
-        condition: service_healthy
+    # depends_on:
+      # mongo:
+      #   condition: service_healthy
     env_file:
       - .env
-    environment:
-      MONGO_URL: mongodb://root:${MONGO_ROOT_PASSWORD}@mongo:27017/ecommerce?authSource=admin
+    # environment:
+    #   MONGO_URL: mongodb://root:${MONGO_ROOT_PASSWORD}@mongo:27017/ecommerce?authSource=admin
     networks:
       - ecommerce-net
     healthcheck:
@@ -52,13 +52,13 @@ services:
     build: ./product-service
     container_name: product-service
     restart: always
-    depends_on:
-      mongo:
-        condition: service_healthy
+    # depends_on:
+      # mongo:
+      #   condition: service_healthy
     env_file:
       - .env
     environment:
-      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
+      # MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
       PORT: 8000
     networks:
       - ecommerce-net
@@ -77,14 +77,14 @@ services:
     container_name: cart-service
     restart: always
     depends_on:
-      mongo:
-        condition: service_healthy
+      # mongo:
+      #   condition: service_healthy
       product-service:
         condition: service_healthy
     env_file:
       - .env
     environment:
-      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
+      # MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
       PRODUCT_SERVICE_URL: http://product-service:8000/api
       CART_SERVICE_URL: http://cart-service:8000/api
       PORT: 8000
@@ -106,14 +106,14 @@ services:
     container_name: payment-service
     restart: always
     depends_on:
-      mongo:
-        condition: service_healthy
+      # mongo:
+      #   condition: service_healthy
       cart-service:
         condition: service_healthy
     env_file:
       - .env
     environment:
-      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
+      # MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
       CART_SERVICE_URL: http://cart-service:8000/api
       PORT: 8000
     networks:
@@ -133,14 +133,14 @@ services:
     container_name: order-service
     restart: always
     depends_on:
-      mongo:
-        condition: service_healthy
+      # mongo:
+      #   condition: service_healthy
       product-service:
         condition: service_healthy
     env_file:
       - .env
     environment:
-      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
+      # MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
       PRODUCT_SERVICE_URL: http://product-service:8000/api
       PAYMENT_SERVICE_URL: http://payment-service:8000/api
       PORT: 8000
@@ -160,13 +160,13 @@ services:
     build: ./admin-service
     container_name: admin-service
     restart: always
-    depends_on:
-      mongo:
-        condition: service_healthy
+    # depends_on:
+      # mongo:
+      #   condition: service_healthy
     env_file:
       - .env
-    environment:
-      MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
+    # environment:
+    #   # MONGO_URL: mongodb://${MONGO_USER}:${MONGO_PASSWORD}@mongo:27017/ecommerce?authSource=ecommerce
     networks:
       - ecommerce-net
     healthcheck:
@@ -204,6 +204,6 @@ networks:
   ecommerce-net:
     driver: bridge
 
-volumes:
-  mongo-data:
-    driver: local
+# volumes:
+#   mongo-data:
+#     driver: local

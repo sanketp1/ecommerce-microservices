@@ -11,6 +11,7 @@ logger = logging.getLogger(__name__)
 
 
 def create_app() -> FastAPI:
+    logger.info(settings.MONGO_URL)
     app = FastAPI(
         title="Auth Service",
         description="Authentication and user management",

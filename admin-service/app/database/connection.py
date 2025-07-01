@@ -28,7 +28,20 @@ class DatabaseManager:
         try:
             # Log the URI with password masked
             logger.info(f"Connecting to MongoDB with URI: {self._mask_mongo_url(settings.MONGO_URL)}")
-            self._client = MongoClient(settings.MONGO_URL)
+            self._client = MongoClient(
+                settings.MONGO_URL,
+                serverSelectionTimeoutMS=30000,
+                connectTimeoutMS=30000,
+                socketTimeoutMS=30000,
+                maxPoolSize=10,
+                minPoolSize=1,
+                maxIdleTimeMS=30000,
+                retryWrites=True,
+                retryReads=True,
+                tls=True,
+                tlsAllowInvalidCertificates=False,
+                tlsAllowInvalidHostnames=False
+            )
             self._database = self._client[settings.DATABASE_NAME]
             logger.info(f"Connected to MongoDB: {settings.DATABASE_NAME}")
             return self._database

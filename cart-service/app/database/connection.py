@@ -13,7 +13,20 @@ def get_mongo_client() -> MongoClient:
     """Get MongoDB client singleton."""
     global _client
     if _client is None:
-        _client = MongoClient(settings.mongo_url)
+        _client = MongoClient(
+            settings.mongo_url,
+            serverSelectionTimeoutMS=30000,
+            connectTimeoutMS=30000,
+            socketTimeoutMS=30000,
+            maxPoolSize=10,
+            minPoolSize=1,
+            maxIdleTimeMS=30000,
+            retryWrites=True,
+            retryReads=True,
+            tls=True,
+            tlsAllowInvalidCertificates=False,
+            tlsAllowInvalidHostnames=False
+        )
         # _client = MongoClient("mongodb://root:admin@localhost:27017")
         logger.info(f"Connected to MongoDB at {settings.mongo_url}")
     return _client
