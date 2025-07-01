@@ -30,6 +30,8 @@ services:
         value: "*"
       - key: LOG_LEVEL
         value: INFO
+      - key: PORT
+        value: 8001
 
   - name: product-service
     type: web
@@ -54,6 +56,8 @@ services:
         value: "*"
       - key: LOG_LEVEL
         value: INFO
+      - key: PORT
+        value: 8002
 
   - name: cart-service
     type: web
@@ -84,6 +88,8 @@ services:
         value: "*"
       - key: LOG_LEVEL
         value: INFO
+      - key: PORT
+        value: 8003
 
   - name: payment-service
     type: web
@@ -118,6 +124,8 @@ services:
         value: "*"
       - key: LOG_LEVEL
         value: INFO
+      - key: PORT
+        value: 8004
 
   - name: order-service
     type: web
@@ -144,6 +152,8 @@ services:
         value: "*"
       - key: LOG_LEVEL
         value: INFO
+      - key: PORT
+        value: 8005
 
   - name: admin-service
     type: web
@@ -168,3 +178,5 @@ services:
         value: "*"
       - key: LOG_LEVEL
         value: INFO
+      - key: PORT
+        value: 8006
