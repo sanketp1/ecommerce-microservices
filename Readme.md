@@ -21,7 +21,23 @@
 ## 🚀 Live Preview
 
 - **Frontend:** [ecommerce-microservices-two.vercel.app](https://ecommerce-microservices-two.vercel.app/)
-- **Demo Video:** *Coming Soon or insert your actual video URL*
+
+---
+
+## 🎬 Demo Video Preview
+
+[![Watch Demo](https://img.shields.io/badge/Watch%20Demo-Click%20to%20Play-blue?logo=playstation)](https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio//ShopHub%20-%20Modern%20E-Commerce%20Platform%20-%20Brave%202025-07-01%2021-23-44.mp4)
+
+<video src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio//ShopHub%20-%20Modern%20E-Commerce%20Platform%20-%20Brave%202025-07-01%2021-23-44.mp4" controls width="100%" style="max-width:600px; margin: 1em 0;"></video>
+
+---
+
+## 🧑‍💼 Demo Admin Credentials
+
+> Use these credentials to log in as an admin and test the admin dashboard features:
+>
+> - **Email:** `admin@ecommerce.com`
+> - **Password:** `Admin@123456`
 
 ---
 
