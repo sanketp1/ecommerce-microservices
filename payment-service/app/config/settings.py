@@ -29,6 +29,8 @@ class Settings:
     
     # Database name
     DATABASE_NAME: str = 'ecommerce'
+
+    PORT: int = int(os.getenv("PORT", "8000"))
     
     # Collections
     PAYMENTS_COLLECTION: str = 'payments'

@@ -3,7 +3,6 @@ FROM python:3.10-slim-buster
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV GUNICORN_CMD_ARGS="--workers ${GUNICORN_WORKERS:-4} --worker-class uvicorn.workers.UvicornWorker --timeout ${GUNICORN_TIMEOUT:-30} --bind 0.0.0.0:8000"
 
 # Install system dependencies
 RUN apt-get update && \
@@ -13,20 +12,20 @@ RUN apt-get update && \
 # Create and set working directory
 WORKDIR /app
 
+# Install application code
+COPY . .
+
 # Install Python dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy application code
-COPY . .
-
 # Expose port
-EXPOSE 8000
+EXPOSE ${PORT:-8000}
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
-    CMD curl -f http://localhost:8000/api/health || exit 1
+    CMD curl -f http://localhost:${PORT:-8000}/api/health || exit 1
 
-# Run application with Gunicorn
-CMD ["gunicorn", "app.main:app"]
+# Run application with uvicorn directly
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT:-8000}"]

@@ -17,6 +17,8 @@ class Settings(BaseSettings):
     # Raw string from .env
     cors_origins: str = os.getenv("CORS_ORIGINS", "*")
 
+    PORT: int = int(os.getenv("PORT", "8000"))
+
     # Derived list
     @property
     def allowed_origins(self) -> List[str]:

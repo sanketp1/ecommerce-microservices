@@ -21,9 +21,13 @@ class Settings(BaseSettings):
     DEFAULT_ADMIN_EMAIL: str = os.getenv("DEFAULT_ADMIN_EMAIL", "admin@ecommerce.com")
     DEFAULT_ADMIN_PASSWORD: str = os.getenv("DEFAULT_ADMIN_PASSWORD", "Admin@123456")
     
+
     # CORS
     # Raw string from .env
     cors_origins: str = os.getenv("CORS_ORIGINS", "*")
+
+    PORT: int = int(os.getenv("PORT", "8000"))
+
 
     # Derived list
     @property
