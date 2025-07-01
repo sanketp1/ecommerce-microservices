@@ -7,47 +7,45 @@
 [![Python Version](https://img.shields.io/badge/python-%3E%3D3.10-blue.svg)](https://www.python.org)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-> A modern, scalable, microservices-based e-commerce platform built with Python, FastAPI, and Docker for seamless online shopping experiences.
+> A modern, scalable, microservices-based e-commerce platform built with Python, FastAPI, Next.js, and Docker for seamless online shopping experiences.
+
+---
+
+## 🚀 Live Preview
+
+**Frontend:** [https://ecommerce-microservices-two.vercel.app/](https://ecommerce-microservices-two.vercel.app/)
+
+**Preview:**
+
+https://github.com/yourusername/ecommerce-microservices/assets/demo.mp4
+
+---
+
+## 🗂️ Microservices & Documentation
+
+| Service         | Docs URL                                                                 |
+|----------------|--------------------------------------------------------------------------|
+| Product        | [Product Service Docs](https://product-service-i3pr.onrender.com/api/products/docs) |
+| Cart           | [Cart Service Docs](https://cart-service-g9v1.onrender.com/api/cart/docs)         |
+| Payment        | [Payment Service Docs](https://payment-service-2bg9.onrender.com/api/payments/docs) |
+| Order          | [Order Service Docs](https://order-service-34yt.onrender.com/api/orders/docs)      |
+| Auth           | [Auth Service Docs](https://auth-service-v19t.onrender.com/auth/docs)             |
+| Admin          | [Admin Service Docs](https://admin-service-553d.onrender.com/admin/docs)          |
+
+---
 
 ## 🌟 Features
 
-- 🔐 **Authentication & Authorization** - JWT-based secure user authentication
-- 🛍️ **Product Management** - Complete CRUD operations for products
-- 🛒 **Shopping Cart** - Real-time cart management with persistent storage
-- 💳 **Payment Integration** - Secure payment processing with Razorpay
-- 📊 **Admin Dashboard** - Comprehensive admin panel for store management
-- 🚚 **Order Management** - Complete order tracking and management system
-- 🔔 **Real-time Notifications** - Live updates for orders and inventory
-- 📈 **Analytics** - Sales and user behavior analytics
-- 🧩 **Microservices** - Modular, independently deployable services
-- 🐳 **Dockerized** - Easy deployment and scaling
-
-## 🚀 Live Demo
-
-**Frontend:** [https://your-ecommerce-frontend.vercel.app](https://your-ecommerce-frontend.vercel.app)
-
-**Admin Panel:** [https://your-ecommerce-admin.vercel.app](https://your-ecommerce-admin.vercel.app)
-
-**API Documentation:** [https://your-api-docs.com](https://your-api-docs.com)
-
-## 🛠️ Tech Stack
-
-### Backend
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![Uvicorn](https://img.shields.io/badge/Uvicorn-000000?style=for-the-badge&logo=uvicorn&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-
-### Database
-![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
-
-### Cloud & DevOps
-![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)
-![Traefik](https://img.shields.io/badge/Traefik-24A1C1?style=for-the-badge&logo=traefik&logoColor=white)
-![AWS](https://img.shields.io/badge/AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
-
-### Payment & Tools
-![Razorpay](https://img.shields.io/badge/Razorpay-2C2F33?style=for-the-badge&logo=razorpay&logoColor=white)
+- 🔐 **Authentication & Authorization** (JWT-based, Google OAuth)
+- 🛍️ **Product Management** (CRUD, categories, admin panel)
+- 🛒 **Shopping Cart** (real-time, persistent)
+- 💳 **Payment Integration** (Razorpay, secure)
+- 📊 **Admin Dashboard** (orders, users, analytics)
+- 🚚 **Order Management** (tracking, status updates)
+- 🔔 **Real-time Notifications**
+- 📈 **Analytics** (sales, user behavior)
+- 🧩 **Microservices** (modular, scalable)
+- 🐳 **Dockerized** (easy deployment)
 
 ---
 
@@ -56,7 +54,7 @@
 ```mermaid
 graph TB
     A[Client/Browser] --> B[Traefik Load Balancer]
-    B --> C[Frontend (React/Vercel)]
+    B --> C[Frontend (Next.js/Vercel)]
     C --> D[API Gateway]
     D --> E[Auth Service]
     D --> F[Product Service]
@@ -75,125 +73,67 @@ graph TB
 
 ---
 
-## 🗄️ Database Schema
+## 🛠️ Tech Stack
 
-### Users Collection
-```json
-{
-  "_id": "ObjectId",
-  "name": "String",
-  "email": "String (unique)",
-  "password": "String (hashed)",
-  "role": "enum: ['user', 'admin']",
-  "avatar": "String (URL)",
-  "addresses": [
-    {
-      "street": "String",
-      "city": "String",
-      "state": "String",
-      "zipCode": "String",
-      "country": "String",
-      "isDefault": "Boolean"
-    }
-  ],
-  "createdAt": "Date",
-  "updatedAt": "Date"
-}
-```
-
-### Products Collection
-```json
-{
-  "_id": "ObjectId",
-  "name": "String",
-  "description": "String",
-  "price": "Number",
-  "discountPrice": "Number",
-  "category": "ObjectId (ref: Category)",
-  "brand": "String",
-  "images": ["String (URLs)"],
-  "inventory": {
-    "quantity": "Number",
-    "lowStockThreshold": "Number"
-  },
-  "specifications": "Object",
-  "ratings": {
-    "average": "Number",
-    "count": "Number"
-  },
-  "isActive": "Boolean",
-  "createdAt": "Date",
-  "updatedAt": "Date"
-}
-```
-
-### Orders Collection
-```json
-{
-  "_id": "ObjectId",
-  "userId": "ObjectId (ref: User)",
-  "items": [
-    {
-      "productId": "ObjectId (ref: Product)",
-      "quantity": "Number",
-      "price": "Number"
-    }
-  ],
-  "totalAmount": "Number",
-  "status": "enum: ['pending', 'confirmed', 'shipped', 'delivered', 'cancelled']",
-  "shippingAddress": "Object",
-  "paymentInfo": {
-    "method": "String",
-    "transactionId": "String",
-    "status": "String"
-  },
-  "createdAt": "Date",
-  "updatedAt": "Date"
-}
-```
+- **Frontend:** Next.js, React, Tailwind CSS, Vercel
+- **Backend:** Python, FastAPI, Uvicorn
+- **Database:** MongoDB
+- **Payments:** Razorpay
+- **DevOps:** Docker, Traefik, AWS (optional)
 
 ---
 
 ## 📚 API Documentation
 
-### Authentication Endpoints
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| POST | `/api/auth/register` | Register new user | ❌ |
-| POST | `/api/auth/login` | User login | ❌ |
-| POST | `/api/auth/logout` | User logout | ✅ |
-| GET | `/api/auth/me` | Get current user | ✅ |
+Each microservice exposes its own OpenAPI/Swagger documentation:
 
-### Product Endpoints
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/products` | Get all products | ❌ |
-| GET | `/api/products/:id` | Get single product | ❌ |
-| POST | `/api/products` | Create product | ✅ (Admin) |
-| PUT | `/api/products/:id` | Update product | ✅ (Admin) |
-| DELETE | `/api/products/:id` | Delete product | ✅ (Admin) |
-
-### Order Endpoints
-| Method | Endpoint | Description | Auth Required |
-|--------|----------|-------------|---------------|
-| GET | `/api/orders` | Get user orders | ✅ |
-| POST | `/api/orders` | Create new order | ✅ |
-| GET | `/api/orders/:id` | Get single order | ✅ |
-| PUT | `/api/orders/:id` | Update order status | ✅ (Admin) |
-
-For complete API documentation, visit: [API Docs](https://your-api-docs.com)
+- [Product Service Docs](https://product-service-i3pr.onrender.com/api/products/docs)
+- [Cart Service Docs](https://cart-service-g9v1.onrender.com/api/cart/docs)
+- [Payment Service Docs](https://payment-service-2bg9.onrender.com/api/payments/docs)
+- [Order Service Docs](https://order-service-34yt.onrender.com/api/orders/docs)
+- [Auth Service Docs](https://auth-service-v19t.onrender.com/auth/docs)
+- [Admin Service Docs](https://admin-service-553d.onrender.com/admin/docs)
 
 ---
 
-## 🚀 Installation & Setup
+## 🧩 Microservices Overview
+
+### Product Service
+- Product CRUD, categories, search, filtering
+- [API Docs](https://product-service-i3pr.onrender.com/api/products/docs)
+
+### Cart Service
+- Add/remove/update cart items, persistent cart
+- [API Docs](https://cart-service-g9v1.onrender.com/api/cart/docs)
+
+### Payment Service
+- Payment order creation, verification (Razorpay)
+- [API Docs](https://payment-service-2bg9.onrender.com/api/payments/docs)
+
+### Order Service
+- Order creation, status, user order history
+- [API Docs](https://order-service-34yt.onrender.com/api/orders/docs)
+
+### Auth Service
+- JWT authentication, Google OAuth, user management
+- [API Docs](https://auth-service-v19t.onrender.com/auth/docs)
+
+### Admin Service
+- Admin dashboard, user/order/product management
+- [API Docs](https://admin-service-553d.onrender.com/admin/docs)
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 - Python 3.10+
+- Node.js 18+
 - Docker & Docker Compose
 - MongoDB (if running locally)
 - Git
 
-### 📦 Manual Installation
+### Manual Installation
 
 1. **Clone the repository**
    ```bash
@@ -208,29 +148,12 @@ For complete API documentation, visit: [API Docs](https://your-api-docs.com)
      pip install -r requirements.txt
      cd ..
    done
+   cd e-commerce-frontend
+   npm install
    ```
 
 3. **Environment Configuration**
-   
-   Create a `.env` file in the root directory:
-   ```env
-   # MongoDB
-   MONGO_ROOT_USER=root
-   MONGO_ROOT_PASSWORD=your_root_password
-   MONGO_USER=ecommerce_user
-   MONGO_PASSWORD=your_password
-
-   # JWT
-   JWT_SECRET=your_jwt_secret_key
-
-   # Razorpay
-   RAZORPAY_KEY_ID=your_razorpay_key_id
-   RAZORPAY_KEY_SECRET=your_razorpay_key_secret
-
-   # Admin
-   DEFAULT_ADMIN_EMAIL=admin@example.com
-   DEFAULT_ADMIN_PASSWORD=admin_password
-   ```
+   - Create a `.env` file in the root directory and each service as needed (see sample in repo)
 
 4. **Database Setup**
    ```bash
@@ -240,15 +163,17 @@ For complete API documentation, visit: [API Docs](https://your-api-docs.com)
 
 5. **Run the application**
    ```bash
-   # Start each service (example for auth-service)
+   # Start each backend service (example for auth-service)
    cd auth-service
    uvicorn app.main:app --reload --port 8000
+   # Start frontend
+   cd ../e-commerce-frontend
+   npm run dev
    ```
 
 6. **Access the application**
-   - API Gateway: http://localhost:80
-   - Swagger Docs: http://localhost/docs
-   - Admin Panel: http://localhost:3000/admin
+   - Frontend: http://localhost:3000
+   - Swagger Docs: http://localhost:<service-port>/docs
 
 ### 🐳 Docker Installation
 
@@ -272,24 +197,9 @@ For complete API documentation, visit: [API Docs](https://your-api-docs.com)
    ```
 
 4. **Access the application**
-   - API Gateway: http://localhost:80
+   - Frontend: http://localhost:3000
    - Traefik Dashboard: http://monitor.localhost:8080
    - MongoDB: localhost:27017
-
-### ☁️ Cloud Deployment (AWS/Vercel)
-
-#### Frontend Deployment (Vercel)
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-#### Backend Deployment (AWS EC2/ECS)
-```bash
-docker build -t your-ecommerce-api .
-docker tag your-ecommerce-api:latest your-account.dkr.ecr.region.amazonaws.com/your-ecommerce-api:latest
-docker push your-account.dkr.ecr.region.amazonaws.com/your-ecommerce-api:latest
-```
 
 ---
 
@@ -303,15 +213,6 @@ for service in auth-service product-service cart-service payment-service order-s
   cd ..
 done
 ```
-
----
-
-## 📊 Performance
-
-- **Lighthouse Score**: 95+ (Performance, Accessibility, Best Practices, SEO)
-- **Time to First Byte (TTFB)**: < 200ms
-- **First Contentful Paint (FCP)**: < 1.5s
-- **Largest Contentful Paint (LCP)**: < 2.5s
 
 ---
 
@@ -350,17 +251,6 @@ If you have any questions or need help, please:
 
 ---
 
-## 🎯 Roadmap
-
-- [ ] Mobile app (React Native)
-- [ ] AI-powered product recommendations
-- [ ] Multi-vendor marketplace
-- [ ] Inventory management system
-- [ ] Advanced analytics dashboard
-- [ ] Internationalization (i18n)
-- [ ] Progressive Web App (PWA)
-
----
 
 <div align="center">
   <h3>Made with ❤️ by Sanket</h3>
