@@ -5,8 +5,8 @@ from app.config.settings import settings
 from app.utils.logger import logger
 
 # Global MongoDB client and database
-_client: MongoClient = None
-_database: Database = None
+_client: MongoClient | None = None
+_database: Database | None = None
 
 
 def get_mongo_client() -> MongoClient:
