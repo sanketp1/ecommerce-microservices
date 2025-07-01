@@ -164,7 +164,6 @@ export function useAdminAccess() {
   // Fetch user profile if we don't have admin info
   useEffect(() => {
     if (isAuthenticated && !user?.is_admin && !profileFetchAttempted) {
-      console.log('Admin Access - Fetching user profile...');
       fetchUserProfile();
     }
   }, [isAuthenticated, user, fetchUserProfile, profileFetchAttempted]);

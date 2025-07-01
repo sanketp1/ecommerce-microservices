@@ -10,11 +10,9 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "react-hot-toast";
-import { log } from "console";
 
 // Razorpay script loader
 function loadRazorpayScript() {
-  console.log("RAZORPAY_KEY_ID: " + process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
   return new Promise((resolve) => {
     if (document.getElementById("razorpay-script")) return resolve(true);
     const script = document.createElement("script");
@@ -61,9 +59,6 @@ export default function CheckoutPage() {
   };
 
   const handlePlaceOrder = async () => {
-
-    console.log("RAZORPAY_KEY_ID: " + process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID);
-    
     if (!shipping.name || !shipping.address || !shipping.phone) {
       toast.error("Please fill in all shipping fields.");
       return;
@@ -100,7 +95,6 @@ export default function CheckoutPage() {
             razorpay_signature: response.razorpay_signature,
           };
           try {
-            console.log(verification);
             await paymentService.verifyPayment(verification);
             // 5. Place order
             const orderData: OrderCreate = {
@@ -113,9 +107,7 @@ export default function CheckoutPage() {
               total_amount: cart.total,
             };
             const order = await orderService.createOrder(orderData);
-            console.log(order);
             
-           
             clearLocalCart();
             
             toast.success("Order placed successfully!");

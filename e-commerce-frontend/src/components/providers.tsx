@@ -10,31 +10,20 @@ function AuthSync() {
   const { syncCart } = useCartStore()
 
   useEffect(() => {
-    console.log('🔄 AuthSync: Checking authentication state:', {
-      hasToken: !!token,
-      hasUser: !!user,
-      isAuthenticated,
-      userId: user?.id,
-      userEmail: user?.email
-    })
-    
     // Check if user is authenticated on app load
     if (token && user && !isAuthenticated) {
-      console.log('⚠️ AuthSync: Token and user exist but not authenticated, syncing...')
       // This handles the case where the user has a token but the store isn't synced
       // You might want to validate the token with your auth service here
     }
     
     // Fetch user profile when authenticated to get complete user data including admin status
     if (isAuthenticated && token && (!user?.is_admin) && !profileFetchAttempted) {
-      console.log('�� AuthSync: Fetching user profile for admin status...')
       const { fetchUserProfile } = useAuthStore.getState();
       fetchUserProfile();
     }
     
     // Sync cart when authentication state changes
     if (isAuthenticated) {
-      console.log('🔄 AuthSync: Syncing cart for authenticated user...')
       syncCart();
     }
   }, [token, user, isAuthenticated, syncCart, profileFetchAttempted])

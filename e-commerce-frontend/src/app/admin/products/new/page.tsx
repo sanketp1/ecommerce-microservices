@@ -66,14 +66,7 @@ export default function AddProductPage() {
     setLoading(true);
     setError(null);
 
-    // Debug: Log the form data being sent
-    console.log('Form data being sent to backend:', formData);
-    console.log('Form data keys:', Object.keys(formData));
-    console.log('Form data stock value:', formData.stock);
-    console.log('Form data type:', typeof formData.stock);
-
     try {
-      console.log(formData)
       await adminService.createProduct(formData);
       router.push('/admin/products');
     } catch (err: any) {

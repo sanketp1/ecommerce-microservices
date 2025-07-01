@@ -45,7 +45,6 @@ export default function AdminUsersPage() {
   useEffect(() => {
     async function fetchUsers() {
       if (!isAuthenticated || !isAdmin) {
-        console.log('Admin Users - Access denied. isAuthenticated:', isAuthenticated, 'isAdmin:', isAdmin);
         return;
       }
       
@@ -53,10 +52,8 @@ export default function AdminUsersPage() {
       setError(null);
       try {
         const data = await adminService.getAllUsers();
-        console.log('Admin Users - Fetched users data:', data);
         setUsers(data);
       } catch (err: any) {
-        console.error('Admin Users - Error fetching users:', err);
         setError("Failed to load users.");
       } finally {
         setLoading(false);

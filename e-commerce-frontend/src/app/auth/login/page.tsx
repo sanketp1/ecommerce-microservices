@@ -35,12 +35,10 @@ function LoginPageInner() {
   const googleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       setIsGoogleLoading(true);
-      console.log('[Google OAuth] onSuccess tokenResponse:', tokenResponse);
       try {
         const res = await axios.post(`https://auth-service-v19t.onrender.com/api/auth/google`, {
           token: (tokenResponse as any).credential || (tokenResponse as any).access_token,
         });
-        console.log('[Google OAuth] Backend /api/auth/google response:', res);
         setToken(res.data.access_token);
         setUser({
           id: res.data.user.id,
@@ -51,14 +49,12 @@ function LoginPageInner() {
         toast.success('Google login successful!');
         router.push('/dashboard');
       } catch (err) {
-        console.error('[Google OAuth] Error during backend /api/auth/google:', err);
         toast.error('Google login failed. Please try again.');
       } finally {
         setIsGoogleLoading(false);
       }
     },
     onError: (err) => {
-      console.error('[Google OAuth] onError:', err);
       toast.error('Google login failed. Please try again.');
     },
   });

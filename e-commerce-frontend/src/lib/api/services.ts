@@ -162,7 +162,6 @@ export const adminService = {
 
   // Create product (admin)
   createProduct: async (product: ProductCreate) => {
-    console.log('Admin service - creating product with data:', product);
     return apiWrapper(() => adminApi.post('/api/admin/products', product));
   },
 

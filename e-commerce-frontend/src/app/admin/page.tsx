@@ -35,17 +35,9 @@ export default function AdminDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Debug: Log user object to understand its structure
-  useEffect(() => {
-    console.log('Admin Panel - User object:', user);
-    console.log('Admin Panel - isAuthenticated:', isAuthenticated);
-    console.log('Admin Panel - user?.is_admin:', user?.is_admin);
-  }, [user, isAuthenticated]);
-
   useEffect(() => {
     async function fetchDashboardData() {
       if (!isAuthenticated || !isAdmin) {
-        console.log('Admin Panel - Access denied. isAuthenticated:', isAuthenticated, 'isAdmin:', isAdmin);
         return;
       }
       

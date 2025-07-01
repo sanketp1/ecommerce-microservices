@@ -42,7 +42,8 @@ export default function EditProductPage() {
   useEffect(() => {
     async function loadData() {
       if (!isAuthenticated || !isAdmin) {
-        console.log('Admin Edit Product - Access denied. isAuthenticated:', isAuthenticated, 'isAdmin:', isAdmin);
+        setError("Access denied. isAuthenticated: No, isAdmin: No");
+        setLoading(false);
         return;
       }
       

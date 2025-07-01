@@ -34,7 +34,6 @@ export default function AdminProductsPage() {
   useEffect(() => {
     async function fetchData() {
       if (!isAuthenticated || !isAdmin) {
-        console.log('Admin Products - Access denied. isAuthenticated:', isAuthenticated, 'isAdmin:', isAdmin);
         return;
       }
       

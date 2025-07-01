@@ -70,7 +70,8 @@ export default function AdminOrderDetailPage() {
   useEffect(() => {
     async function fetchOrder() {
       if (!isAuthenticated || !isAdmin) {
-        console.log('Admin Order Detail - Access denied. isAuthenticated:', isAuthenticated, 'isAdmin:', isAdmin);
+        setError("Access denied. isAuthenticated: " + isAuthenticated + " isAdmin: " + isAdmin);
+        setLoading(false);
         return;
       }
       
@@ -86,7 +87,6 @@ export default function AdminOrderDetailPage() {
         // Since admin API doesn't have a GET single order endpoint, 
         // we'll fetch all orders and find the specific one
         const allOrders = await adminService.getAllOrders();
-        console.log('Admin Order Detail - Fetched all orders:', allOrders);
         
         const foundOrder = allOrders.find((o: AdminOrder) => o.order_id === id);
         if (foundOrder) {

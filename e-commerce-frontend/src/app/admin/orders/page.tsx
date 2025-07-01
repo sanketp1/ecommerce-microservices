@@ -61,7 +61,6 @@ export default function AdminOrdersPage() {
   useEffect(() => {
     async function fetchOrders() {
       if (!isAuthenticated || !isAdmin) {
-        console.log('Admin Orders - Access denied. isAuthenticated:', isAuthenticated, 'isAdmin:', isAdmin);
         return;
       }
       
@@ -69,10 +68,8 @@ export default function AdminOrdersPage() {
       setError(null);
       try {
         const data = await adminService.getAllOrders();
-        console.log('Admin Orders - Fetched orders data:', data);
         setOrders(data);
       } catch (err: any) {
-        console.error('Admin Orders - Error fetching orders:', err);
         setError("Failed to load orders.");
       } finally {
         setLoading(false);
@@ -114,7 +111,6 @@ export default function AdminOrdersPage() {
             break;
         }
       } catch (error) {
-        console.error('Error parsing order date:', order.created_at, error);
         matchesDate = false;
       }
     }

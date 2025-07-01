@@ -29,17 +29,6 @@ const createApiClient = (baseURL: string): AxiosInstance => {
         config.headers.Authorization = `Bearer ${token}`;
       }
       
-      // Debug: Log request data for product creation
-      if (config.data && (config.url?.includes('/products') || config.url?.includes('/admin/products'))) {
-        console.log('=== REQUEST DEBUG ===');
-        console.log('Request URL:', config.url);
-        console.log('Request method:', config.method);
-        console.log('Request data:', config.data);
-        console.log('Request data type:', typeof config.data);
-        console.log('Request data keys:', Object.keys(config.data));
-        console.log('====================');
-      }
-      
       return config;
     },
     (error) => {
