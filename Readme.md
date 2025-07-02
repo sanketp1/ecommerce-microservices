@@ -1,6 +1,6 @@
 # 🛒 E-commerce Microservices Platform
 
-[![Build Status](https://img.shields.io/github/actions/workflow/status/sanketp1/ecommerce-microservices/ci.yml?branch=master)](https://github.com/sanketp1/ecommerce-microservices/actions)
+
 [![Coverage Status](https://img.shields.io/codecov/c/github/sanketp1/ecommerce-microservices)](https://codecov.io/gh/sanketp1/ecommerce-microservices)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-green.svg)](package.json)
