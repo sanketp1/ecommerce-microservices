@@ -18,15 +18,23 @@
 
 ---
 
-## 🚀 Live Preview
+## 📱 App Preview
 
-- **Frontend:** [ecommerce-microservices-two.vercel.app](https://ecommerce-microservices-two.vercel.app/)
-
----
-
-## 🎬 Demo Video Preview
-
-<video src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio//ShopHub%20-%20Modern%20E-Commerce%20Platform%20-%20Brave%202025-07-01%2021-23-44.mp4" controls width="100%" style="max-width:600px; margin: 1em 0;"></video>
+<div align="center">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/1.jpg" alt="App Preview 1" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/2.jpg" alt="App Preview 2" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/3.jpg" alt="App Preview 3" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/4.jpg" alt="App Preview 4" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/5.jpg" alt="App Preview 5" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/6.jpg" alt="App Preview 6" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/7.jpg" alt="App Preview 7" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/8.jpg" alt="App Preview 8" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/9.jpg" alt="App Preview 9" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/10.jpg" alt="App Preview 10" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/11.jpg" alt="App Preview 11" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/12.jpg" alt="App Preview 12" width="200" style="margin: 5px;">
+  <img src="https://fmzqhgyfpkifsbymzdoy.supabase.co/storage/v1/object/public/portfolio/e-commerce-app-preview/13.jpg" alt="App Preview 13" width="200" style="margin: 5px;">
+</div>
 
 ---
 
